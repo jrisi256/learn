@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8"/>
+        <title>Hello CSS</title>
+        <link rel = "stylesheet" href = "styles.css"/> <!--We use the link element to link style sheets. It's like the "a" tag but it's only meant to be used within head i.e. it's used to link to metadata, things we don't show the user. The "rel" attribute defines the relationship between the linked resource and the HTML document. Most common is stylesheet.-->
+    </head>
+    <body>
+        <h1>Hello CSS</h1>
+
+        <p>CSS let's us stlye HTML elements. There's also <a href = "dummy.html" target = "_blank">another page</a> associated with this example.</p>
+
+        <h2>List Styles</h2>
+
+        <p>You can style unordered lists with the following bullets:</p>
+
+        <ul>
+            <li>disc</li>
+            <li>circle</li>
+            <li>square</li>
+        </ul>
+
+        <p>And you can order ordered lists with the following:</p>
+
+        <ol>
+            <li>decimal</li>
+            <li>lower-roman</li>
+            <li>upper-roman</li>
+            <li>lower-alpha</li>
+            <li>upper-alpha</li>
+            <li>and many more!</li>
+        </ol>
+
+        <p>/Now where does the cascading part of style sheets come in? Well they're cascading because rules cascade down in the following way (ordered from least to most precedence):</p>
+
+        <ol>
+            <li> Browser default stylesheet </li>
+            <li> User-defined stylesheets </li>
+            <li> External stylesheets (that's us) </li>
+            <li> Page-specific styles (also us but try to avoid) </li>
+            <li> Inline styles (don't do this) </li>
+        </ol>
+
+        <p>What are page-specific styles? Well you can use a special HTML element called the "style" element to define CSS rules specific to that page within the HTML page itself. Lives in the head because it's metadata. The problem is they're very hard to maintain.</p>
+
+        <p>What are inline styles? Well you can set the style "attribute" of any HTML element and then just stick the CSS there. Avoid this at all costs.</p>
+
+        <p>We can also, of course, link to multiple CSS stylesheets. Order matters! Ones that came later override ones which came earlier.</p>
+    </body>
+</html>

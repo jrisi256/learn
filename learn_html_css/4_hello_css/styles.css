@@ -1,0 +1,50 @@
+/*Each rule starts with a selector which defines the HTML element it applies to. In the below case, we're styling the body HTML element. Then we add properties and set values in the declaration block which will affect the body element.*/
+
+body {
+
+    /* You can set multiple properties */
+    color: #FF0000;
+    background-color: #EEEEEE;
+    font-size: 18px;
+}
+
+/* lots of units available for setting font size. The two most common are px (pixel) and em. Pixel is an absolute sizing measure. em is a relative sizing measure which sizes relative to the current base font and pixel size. */
+
+/* for example, we set the size of everything to 18 pixels. And then say our h1 elements should be double that, and our h2 elements should be 1.6 times as big as that. */
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+/* can select multiple elements in the same rule */
+
+h1, h2, h3, h4, h5, h6 {
+
+    /* can provide multiple fallback options in case browser doesn't support. Always end with a "general" font family supported everywhere. */
+
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-weight: normal; /* how to bold */
+    font-style: italic; /* how to italicize */
+}
+
+ul {
+    list-style-type: circle;
+}
+
+ol {
+    list-style-type: lower-roman;
+}
+
+a {
+    /* describes how text gets underlined */
+    text-decoration: none;
+}
+
+p {
+    /* aligns the text */
+    text-align: center;
+}

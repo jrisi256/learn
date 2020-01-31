@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "en"> <!--Should set a web pages' default language-->
+    <head>
+        <title>Images</title>
+        <meta charset = "UTF-8"/>
+    </head>
+    <body>
+        <h1>Images</h1>
+
+        <p>This page covers common image formats, but you may also be looking for <a href = "links.html" target = "_blank">links</a> or <a href = "misc/extras.html" target = "_blank">extras</a>.</p>
+
+        <h2>JPGs</h2>
+
+        <p>JPG images are good for handling large color palettes w/out increasing the file size too much. They're great for photos. However, they don't allow for transparent pixels hence white edges.</p>
+
+        <img src = "images/mochi.jpg" alt="A mochi ball in a bubble"/>
+        <!--It's good practice to use the alt attribute as this defines a text alternative to the image. Useful for search engines and users who use text-to-speech software.-->
+
+        <h2>GIFs</h2>
+
+        <p>GIFs are used for animation.</p>
+
+        <img src = "images/mochi.gif" alt="A dancing mochi ball"/>
+
+        <h2>PNGs</h2>
+
+        <p>PNGs are great for logos and diagrams (not photos). This is because PNG files of the same quality as a JPG would tend to be much bigger.</p>
+
+        <img src = "images/mochi.png" width = "600" alt = "A mochi ball"/>
+        <!--There is both a width and a height target. Setting only one will scale the photo proportionally. The unit is always pixels. The default width and height are inherited from the photo itself.-->
+
+        <h2>SVGs</h2>
+
+        <p>SVGs are not pixel-based but vector-based. This means it can scale up or down without loss of quality. SVGs are very good for use with responsive design. Use them whenever you can.</p>
+
+        <img src = "images/mochi.svg" width = "600" alt = "A mochi ball with handles"/>
+    </body>
+</html>
