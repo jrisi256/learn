@@ -1,5 +1,5 @@
-# Learning HTML and CSS
-This is where I will be practicing my skills in building a website.
+# Learning
+This is where I will document all my learning attempts and activities. Below are links to learning resources.
 
 ## Cheat Sheets
 https://digital.com/tools/html-cheatsheet/#category-home  
@@ -11,9 +11,6 @@ https://javascript30.com/
 
 ## Flask
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world  
-
-## HTML/CSS
-https://internetingishard.com/html-and-css/
 
 ## Web Development
 https://www.learnenough.com/courses  
