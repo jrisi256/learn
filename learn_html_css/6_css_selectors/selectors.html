@@ -7,14 +7,49 @@
     </head>
 
     <body>
-        <h1>CSS Selectors</h1>
+        <div class = "page">
+            <h1>CSS Selectors</h1>
 
-        <p>CSS selectors let you <em>select</em> individual HTML elements in an HTML document. This <strong>super</strong> useful.</p>
+            <p class = "synopsis">CSS selectors let you <em>select</em> individual HTML elements in an HTML document. This is <strong>super</strong> useful.</p>
 
-        <p>Classes are ridiculously important since they allow you to select arbitrary boxes in your web pages.</p>
+            <p>Classes are ridiculously important since they allow you to select arbitrary boxes in your web pages.</p>
 
-        <p>We'll also be talking about links in this example so here's <a href = "https://internetingishard.com">Interneting Is Hard</a> for us to style.</p>
+            <a href = "#example">Click here to go to the bottom of our page!</a>
 
-        <div>Button One</div>
+            <p>We'll also be talking about links in this example so here's <a href = "https://internetingishard.com" target = "_blank">Interneting Is Hard</a> for us to style.</p>
+
+            <p>Why did we include a link? Well there's <em>stateful</em> information about what the user is doing we can tap into. SO take a link for example. Users can hover over a link, they can click on it, etc. We use <strong>pseudo-classes</strong> to tap into this information. Basically they are class selectors you don't have to write because they're built into our browser.</p>
+
+            <div class = "button">Button One</div>
+            <div class = "button">We can reuse classes</div>
+            <div class = "button call-to-action">HTML elements can have more than one class. Styles from each class get applied allowing for reuse and overriding. However the order of classes in our HTML element is meaningless. The order matters in the CSS.</div>
+
+            <p>Remember that div does not alter the semantic structure of a page. It helps define the <em>presentational</em> structure of a web page. By wrapping other HTML elements in <em>div</em> tags, we can organize our site into larger layout-oriented chunks. For example, we wrapped all these HTML elements into one div which we can then style (by centering).</p>
+
+            <a class = "button" href = "https://www.wikipedia.org" target = "_blank">Button Two</a>
+            <a class = "button call-to-action" href = "https://www.mozilla.org" target = "_blank">Button Three. Notice how these elements are behaving different from our div elements. This is because, by default, the <em>a</em> tag is an inline element. We'll need to change this to a block element.</a>
+
+            <p>Pseudo-classes can also provide extra information about an element's surroundings. For example, the <em>:last-of-type</em> pseudo-class selects the final element of the specified type in its parent element. And we add some space at the end of this paragraph. The pros and cons of this method... on the one hand it let's us style our HTML without having to alter the HTML at all (by adding a class for example). However, the downside is that it's a bit more rigid.</p>
+
+            <div class = "sidebar">
+                <p>A caveat to our <strong>:last-of-type</strong> pseudo-class selector. It selects inside every parent element. It selects the last <em>p tag</em> in every container element. To style only specific first paragraph elements, well you could use descendant or child selectors which is what we do.</p>
+            </div>
+
+            <p id = "example">We can use "ID selectors" instead of class selectors. They work exactly the same except <strong>only one element</strong> per page can have a given ID. You cannot really reuse styles as a result. As a result, ID selectors aren't really used. Well to amend what we're saying, IDs are sometimes used in URL fragments (which are useful for directing people to a specific part of our web page). But this is actually more reason to avoid using ID selectors since you may inadvertently break the style when changing the URL.</p>
+
+            <img src = "url_fragments.png" alt = "Graphic explaining how to compose a URL"/>
+
+            <p>One last thing we should talk about is <strong>CSS specificity</strong>. We know that all else being equal rules are applied in a predictable manner from top-to-bottom. However everything isn't equal. Below will be listed from greatest precedence to least precedence.</p>
+
+            <ol>
+                <li>#button-2 (ID selectors)</li>
+                <li>.button:link (pseudo-class selectors on a class)</li>
+                <li>a:link and .synopsis em (pseudo-class selectors on an HTML element and descendant selectors are equal)</li>
+                <li>.button (class selector)</li>
+                <li>a (regular HTML selector)</li>
+            </ol>
+
+            <p>This gets very confusing. It's so confusing an entire methodology called <a href = "http://getbem.com/introduction/" target = "_blank">BEM</a> has been created to make everything a class selector. This eliminates specificity issues.</p>
+        </div>
     </body>
 </html>

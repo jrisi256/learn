@@ -1,0 +1,113 @@
+/* the dot in front of synopsis indicates it is a class selector */
+
+.synopsis {
+    color: #7E8184;
+    font-style: italic;
+}
+
+.button {
+    color: #FFF;
+    background-color: #5995DA;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #5D6063;
+    border-radius: 5px;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.page {
+    width: 600px;
+    maring: 0 auto;
+}
+
+/* If we switched .call-to-action and .button, then .button would take precedence. */
+
+.call-to-action {
+    font-style: italic;
+    background-color: #EEB75A;
+}
+
+/* Descendant selectors let us target elements inside of another element. Results in more maintainable code since not everything has to have a class now. Of course, you don't have to use descendant selectors on just class selectors! */
+
+.synopsis em{
+    font-style: normal;
+}
+
+/* We also have child selectors which target only the direct child element of the parent element. Descendant selectors will find any and all descendants. Be careful not to overdo this and create overly specific CSS selectors. */
+
+p > strong {
+    color: #5995DA
+}
+
+/* Pseudo-classes begin w/ a colon followed by the name of the desired class. */
+
+a:link {
+    color: blue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    color: aqua;
+    text-decoration: underline;
+}
+
+a:active {
+    color: red;
+}
+
+/* We can string together pseduo-classes */
+a:visited:hover {
+    color: orange;
+}
+
+a:visited:active{
+    color:red;
+}
+
+.button:link,
+.button:visited {
+    display: block;
+    text-decoration: none;
+    /* background-color: green; */ /* Notice how this would override the background color .call-to-action and .button */
+}
+
+.button:hover,
+.button:visited:hover {
+    color: #FFF;
+    background-color: #76AEED;
+}
+
+.button:active,
+.button:visited:active {
+    color: #FFF;
+    background-color: #5995DA;
+}
+
+.call-to-action:hover,
+.call-to-action:visited:hover {
+    background-color: #F5CF8E;
+}
+
+.call-to-action:active,
+.call-to-action:visited:active {
+    background-color: #EEB75A;
+}
+
+p:last-of-type {
+    margin-bottom: 50px;
+}
+
+.sidebar > p:first-of-type {
+    color: #7E8184;
+    font-style: italic;
+}
+
+#example {
+    color: mediumslateblue;
+}
