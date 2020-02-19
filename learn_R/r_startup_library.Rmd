@@ -1,0 +1,23 @@
+---
+title: "R Startup and Library Paths"
+output: html_document
+---
+
+Renviron files
+
+Step 1: Was --no-environ set on the command line? - If so, do not search for site and user files to process environmental variables.
+Step 2: Check the OS level environment variable R_ENVIRON for the path to the site environment file.
+    + I assume R_ENVIRON has to be an OS-level environment variable because I'm not sure where else you could set it.
+    + I suppose you could set it in the R_HOME/etc/Renviron file, but everywhere I've read says you should not edit that file.
+Step 3: If R_ENVIRON is unset (which by default it is), go to R_HOME/etc/Renviron.site (if it exists, sometimes it does and sometimes it does not. not terribly important.) and set environmental variables for your R session.
+Step 4: Next check the R_ENVIRON_USER environment variable for the path to the user environment file.
+    + This can be set either in in the site-level environment file (although it wouldn't make much sense to set the same user file for all users) OR it can be set using an OS level environment variable (probably the better way to do it).
+Step 5: if the R_ENVIRON_USER environment variable is unset (which by default it is), then check R's current working directory for a ".Renviron" file. Generally this is where an R project's .Renviron file will be pulled in.
+Step 6: If R's current working directory does not have a .Renviron file, look in the user's home directory ~/.Renviron.
+
+Some misc.
+
+1. A site-wide file and EITHER an R project or user file can be loaded at the same time.
+2. The environment files are plain-text files in the form of `name=vale`. They are not R code. You can comment out things with `#`.
+3. On Unix/Linux versions of R, there is a file `R_HOME/etc/Renviron` which is read very early in the start-up processing. It contains environment variables set by R in the configure process. Values in that file can be overriden in site or user environment files. The Renviron file SHOULD NOT be changed itself.
+4. Site-wide files are read by all users. User-wide files are read only by the user.
