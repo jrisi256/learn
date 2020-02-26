@@ -18,10 +18,51 @@ body {
     justify-content: space-around;
 
     width: 800px;
-    margin: 25px 0;
+    margin: 50px 0;
     background-color: #D6E9FE;
 }
 
 .item img {
-    display: block;
+    display: block; /* Interesting note. img elements are technically inline elements. All inline elements have an extra 4 pixels added to them to account for the wide range of letters that could appear (think b vs. p). So we have to turn it into a block element so those extra 4 pixels don't appear. */
+}
+
+p {
+    padding-bottom: 15px;
+}
+
+ul {
+    padding-left:25px;
+    padding-bottom: 15px;
+}
+
+/* We use the position property let's us alter the positioning scheme. */
+
+/* Important note with relative positioning, neither the surrounding elements or the parent element are affected. Everything renders as if the item was in its original position. */
+
+.item-relative {
+    position: relative;
+    top: 30px;
+    left: 30px;
+}
+
+/* Unlike with relative positioning, absolute positioning completely removes an element from the normal flow of the page. The space where the item would normally have existed no longer exists. This seems rather useless though since everything would need to be absolutely positioned for this work... */
+
+.item-absolute {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* However, absolute elements are relative to the closest container that is ALSO a positioned element (or non-static). It falls back on the browser when none of its ancestors are positioned. So if we change .item-absolute's parent to be a positioned element, .item-absolute will appear relative to that item.
+
+This also has the added benfit of not taking the element out of the static flow. */
+
+.absolute {
+    position: relative;
+}
+
+.item-fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }

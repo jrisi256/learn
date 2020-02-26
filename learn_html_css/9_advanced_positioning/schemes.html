@@ -7,6 +7,17 @@
     </head>
 
     <body>
+        <p>Static positioning refers to the normal flow of the page we've been working with so far. There are other positioning schemes as well.</p>
+        <ul>
+            <li>Relative</li>
+            <li>Absolute</li>
+            <li>Fixed</li>
+        </ul>
+        <p>Each of these schemes allow for the manual positioning of elements using specific coordinates as opposed to the more relative positioning we've seen so far. So rather rather than saying, "Stick this box in the center of its container" we might say, "Put this box 20 pixels above and 50 pixels to the right of its parent's origin."</p>
+        <p>The vast majority of elements should be laid out using the static flow. The other schemes come into play when you want to tweak the position of a particular element or animate a UI component without messing up the surrounding elements.</p>
+
+        <p>Relative positioning moves elements around relative to where they would normally appear in the static flow of the page. This is useful for nudging boxes around when the default flow is a little bit off.</p>
+
         <div class = "container">
             <div class = "example relative">
                 <div class = "item"><img src = "images/static.svg"/></div>
@@ -15,6 +26,8 @@
             </div>
         </div>
 
+        <p>Absolute positioning is like relative positioning, but the offset is relative to the entire browser window.</p>
+
         <div class = "container">
             <div class = "example absolute">
                 <div class = "item"><img src = "images/static.svg"/></div>
@@ -22,6 +35,8 @@
                 <div class = "item"><img src = "images/static.svg"/></div>
             </div>
         </div>
+
+        <p> Fixed items are removed from the normal flow of the page and are positioned relative to the entire browser window. So very similar to absolute. However, they also don't scroll with the rest of the page. </p>
 
         <div class = "container">
             <div class = "example fixed">
