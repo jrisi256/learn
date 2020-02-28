@@ -1,4 +1,4 @@
-# R Start-up, Renvirons, Rprofiles, and Library Paths
+# Renvirons, Rprofiles, and Libraries
 
 ## Renvirons
 
@@ -24,7 +24,7 @@ Finally, there will be **user-level** and **site-level** Renvirons (and Rprofile
 
 * You may be asking yourself, "What is this `R_HOME` I keep seeing pop up?" `R_HOME` is an environment variable set by R. It is simply the top-level directory for your R installation or R's *home*. You can find out the `R_HOME` path by typing `Sys.getenv("R_HOME")` in an R session, typing `R.home()` in an R session, or by typing `R RHOME` in the terminal.
 * A site-wide file and EITHER an R project or user Renviron can be loaded at the same time. You cannot have a project Renviron and a user Renviron loaded at the same time.
-* On Unix/Linux versions of R, there is a file `R_HOME/etc/Renviron` which is read very early in the start-up process. It contains environment variables set by R in the configure process. Values in that file can be overriden in site or user environment files. The Renviron file SHOULD NOT be changed itself.
+* On Unix/GNU-Linux versions of R, there is a file `R_HOME/etc/Renviron` which is read very early in the start-up process. It contains environment variables set by R in the configure process. Values in that file can be overridden in site or user environment files. The Renviron file SHOULD NOT be changed itself.
 * What sorts of things do people put in their Renviron files? Generally people put API keys or other sensitive information so they can share code without exposing that sensitive information (anywhere in the code which needs the key you can use `Sys.getenv("API_KEY")`). For other use cases refer to the [links at the bottom of the section](#links-for-better-understanding-rprofiles-and-renvirons).
 * The above note should indicate you generally (but not always) do not want to share your Renviron file through something like Github. You can add your Renviron to your `.gitignore` file.
 * You should not set-up/use your Renviron file in such a way so as to reduce the portability/reproducibility of your code.
@@ -44,18 +44,18 @@ It's also widely discouraged from adding R code to your Rprofile which would lim
 4. Was `--no-init-file` set at the command line? If so, do not look for a user Rprofile.
 5. If it was not set, check the value of the environment variable `R_PROFILE_USER` for the path to the user's Rprofile.
     + Like above for `R_PROFILE`, you can set this at the OS level, or in one of your `.Renviron` or `Renviron.site` files.
-6. If R_PROFILE_USER is undefined (by default it is), check R's current working directory for `.Rprofile`. Generally speaking this is where a project's `.Rprofile` will be stored.
+6. If `R_PROFILE_USER` is undefined (by default it is), check R's current working directory for `.Rprofile`. Generally speaking this is where a project's `.Rprofile` will be stored.
 7. If no `.Rprofile` is found in R's current working directory, check the user's home directory `~/.Rprofile`.
 
 Similar to Renvirons, a site-wide Rprofile and EITHER an R project Rprofile or user Rprofile can be loaded at the same time. You cannot have a project Rprofile and a user Rprofile loaded at the same time.
 
 ## Links for better understanding Rprofiles and Renvirons
 
-* [Offical documentation from R concerning its startup process concerning Rprofiles and Renvirons](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html)
+* [Official documentation from R concerning its start-up process around Rprofiles and Renvirons](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Startup.html)
 * [Excerpt from the *Efficient R Programming* book concerning Rprofiles and Renvirons](https://csgillespie.github.io/efficientR/set-up.html#r-startup)
-    + Here is an [additional excerpt](book.https://csgillespie.github.io/efficientR/3-3-r-startup.html#r-startup) from an older (potentially newer?) version of the book.
+    + Here is an [additional excerpt](book.https://csgillespie.github.io/efficientR/3-3-r-startup.html#r-startup) from an older (I think) version of the book.
 * [Deeper dive on Rprofiles and Renvirons provided by RStudio](https://rviews.rstudio.com/2017/04/19/r-for-enterprise-understanding-r-s-startup/). It goes into some interesting use cases for Rprofiles and Renvirons.
-* [Excerpt from the *What They Forgot To Teach You About R* Book concerning Rprofiles and Renvirons](https://rstats.wtf/r-startup.html). It has a very useful (although intimidiating at first glance) diagram of R's startup process.
+* [Excerpt from the *What They Forgot To Teach You About R* Book concerning Rprofiles and Renvirons](https://rstats.wtf/r-startup.html). It has a very useful (although intimidating at first glance) diagram of R's start-up process.
 * [For the curious who are interested in using environment variables in the OS](https://devconnected.com/how-to-set-and-unset-environment-variables-on-linux/)
 * [Useful list of environment variables which affect R](https://stat.ethz.ch/R-manual/R-devel/library/base/html/EnvVar.html)
 
@@ -66,40 +66,37 @@ Why should you be concerned with libraries? The power of R largely comes from it
 
 ### Where are my packages currently being stored?
 
-* The **library search path** (or where R looks for your installed packages) is initialized at start-up from a variety of different sources each taking a different priority. This means if one happens to have multiple versions of an R package installed, libraries with higher priority will have their version of the package loaded.
-    1. The library paths specified by the environment variable `R_LIBS` take the highest precedence. The use case for this environment variable is a bit unclear to me. It seems as if the most appropriate use case is if there are shared libraries you want to take precedence over individuals' libraries.
-    2. The library paths specified by the environment variable `R_LIBS_USER` is the next highest. This should point to a user's respective libraries.
-    3. The library paths specified by `R_LIBS_SITE` are next highest in terms of priority. This should point to a set of shared libraries. One can access the value for `R_LIBS_SITE` by typing `.Library.site` in an R session.
-    4. Last in terms of priority is the path returned by `.Library` which is the *library* subdirectory of R_HOME. Generally speaking this is where the default R packages (came in the initial R download and installation) are kept.
-* All of the environment variables should be a colon-separated list of directories. All the directories must be valid otherwise R silently ignores them.
-* To see your library search path, you can use the `.libPaths()` function in an R session. When you don't provide any arguments, it will provide the current library search path in order of descending priority. #################### what about new?
- 
- 
- 
-* .Library.site is a (possibly empty) character vector giving the location(s) of the site library(ies), the "site-library" subdirectory of R_HOME.
-    + On some linux systems, there are a bunch of site libraries which can cause a lot of confusion:
-        + /usr/lib/R/library is for the core R packages which are installed using apt when downloading/installing R itself.
-        + /usr/lib/R/site-library is for R packages installed using using the OS package manager (yum, apt, etc.).
-        + /usr/local/lib/R/site-library is for R packages installed using R.
-* By default, R_LIBS is unset and R_LIBS_USER is set to directory `R/R.version$platform-library/x.y`.
-* .Library.site can be set via the environment variable R_LIBS_SITE (non-empty colon-separated list of library trees).
+* The **library search path** (or where R looks for your installed packages) is initialized at start-up from a variety of different sources each taking a different priority. This means if one happens to have multiple versions of an R package installed, libraries with higher priority will have their version of the package loaded. It also means when packages are being installed, they will be installed into the library with the highest priority.
+    1. The library paths specified by the environment variable `R_LIBS` take the highest precedence. The use case for this environment variable is a bit unclear to me. It seems as if the most appropriate use case is if there are site libraries that you want to take precedence over users' libraries.
+        + By default, `R_LIBS` is unset.
+    2. The library paths specified by the environment variable `R_LIBS_USER` are next highest. This should point to a user's respective libraries.
+        + By default (on GNU-Linux systems), this is set to `~/R/R.version$platform-library/x.y` where *x.y* refers to the version of R being used (e.g. 3.4).
+    3. Next in terms of priority are the library paths specified by the R variable `.Library.site`. How it gets set:
+        
+        + Is the environment variable `R_LIBS_SITE` set? If so, set the value of `.Library.site` to `R_LIBS_SITE`.
+        + If `R_LIBS_SITE` is not set, `.Library.site` defaults to `R_HOME/site-library`.
+        + If `R_HOME/site-library` does not exist, `.Library.site` does not get set. As a result, there are no site libraries.
+        
+        &nbsp;
+    4. Last in terms of priority is the path returned by the R variable `.Library` which is `R_HOME/library`. Generally speaking this is where the default R packages (which came in the initial R download and installation) are kept.
+        + The value for `.Library` cannot be changed.
+* To see your library search path, you can use the `.libPaths()` function in an R session. When you don't provide any arguments, it will provide the current library search path which will generally look like `unique(c(R_LIBS, R_LIBS_USER, .Library.site, .Library))` with the first item having the highest priority. You can also do `.libPaths(new)` which designates a **new** directory to include in your library search path. Interestingly the library search path looks like `unique(c(new, .Library.site, .Library))` after providing an argument for `new`. This means the directories designated by `R_LIBS` and `R_LIBS_USER` are no longer part of the search path.
 
-* R_LIBS_USER
-    + intended to list libraries for a single user, doesn't affect other users.
-* R_LIBS_SITE
-    + Intended to list libraries shared by multiple users.
-* libPaths()
-    + Shows libraries in the search paths.
-* R_LIBS
-    + Environment variable to be read at start-up. Not entirely sure what the purpose is.
+### Notes on libraries
 
-* Only 1 version of each R package can be installed and accessed in a library at a time.
-* An R library is tied to a specific version of R.
-* R can search through multiple libraries, and libraries can be shared across projects and users.
+* I've seen some places on the internet suggesting you set `Library.site` in an `.Rprofile` or `Rprofile.site`. In my experience, this does not work well and leads to odd behavior so I wouldn't recommend it. However, it could be because I don't have a complete enough understanding of R's start-up processes. In any case, I encourage further experimentation and maybe someone can achieve better results than I was able to using this method.
+* I have additionally seen some places on the internet suggesting you set `libPaths()` directly in an Rprofile. For example, `libPaths(c("path1", "path2"))` or even `.libPaths(c("path1", .libPaths()))`. This method does technically work and generally does not lead to the odd behavior which can sometimes happen when trying to set `.Library.site` directly. However, I'm not exactly sure what this approach offers over setting these values directly using the environment variables mentioned above. Since the R environment variables are provided, it makes more sense to me to use them. I also wouldn't recommend mixing methods either because (at least for me) it would get too confusing to keep track of everything.
+* All of the environment variables should be a colon-separated list of directories. All the directories must also be valid otherwise R **silently** ignores them. In other words, R will not display any messages or warnings that a path was not valid (does not exist). This is a subtle but important point. I've banged my head against the wall so many times because a library was not showing up in .libPaths() only to realize I had typed in the path incorrectly.
+    + This also leads to interesting behavior when running R as a sudo user. For example, if `R_LIBS_USER` is the default `~/R/R.version$platform-library/x.y` then this path will be invalid when run as sudo (since your ~ directory is different as yourself vs. root, and I'm assuming this library does not exist in root's home directory). As a result, it will not show up in your .libPaths(). Of course, this also depends on which version of GNU-Linux one is using since different operating systems treat `sudo` and `su` differently. As of the time of this writing for example, if I ran `sudo R` on Ubuntu 18.04 my `R_LIBS_USER` libraries still showed up. If I ran `sudo su` then `R`, my `R_LIBS_USER` libraries did not show up. Contrast this with Red Hat 8 where both `sudo R` and then `sudo su` followed by `R` resulted in my `R_LIBS_USER` libraries not showing up.
+* Only **one** version of each R package can be installed and accessed in a given library at a time.
+* An R library is tied to a specific version of R meaning unexpected behavior can result in trying to load a package from a library associated with a version of R different from the one you are using.
+* On some GNU-Linux systems, there are a bunch of site libraries defined by default under `R_LIBS_SITE`. I was confused as to what was the difference between all of them so I after some searching, I found [the answer](https://stat.ethz.ch/pipermail/r-help/2003-October/041178.html) which I will document here:
 
-## Links
-* https://community.rstudio.com/t/help-regarding-package-installation-renviron-rprofile-r-libs-r-libs-site-and-r-libs-user-oh-my/13888
-* http://www.quintuitive.com/2018/03/31/package-paths-r/
-* https://stat.ethz.ch/R-manual/R-devel/library/base/html/libPaths.html
-* https://stat.ethz.ch/pipermail/r-help/2003-October/041178.html
-* https://environments.rstudio.com/libraries.html
+    + `/usr/lib/R/library` is for the default R packages which are installed using the OS package manager when downloading/installing R itself.
+    + `/usr/lib/R/site-library` is for R packages installed using using the OS package manager (yum, apt, etc.).
+    + `/usr/local/lib/R/site-library` is for R packages installed using R.
+        
+### Links for better understanding libraries
+* [A fellow R user who was just as confused as I was when I first started learning about libraries has their questions answered](https://community.rstudio.com/t/help-regarding-package-installation-renviron-rprofile-r-libs-r-libs-site-and-r-libs-user-oh-my/13888)
+* [This is for Windows but still very informative for understanding libraries, and it also has a helpful video](http://www.quintuitive.com/2018/03/31/package-paths-r/)
+* [Official R documentation concerning libraries and the library search path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/libPaths.html)
