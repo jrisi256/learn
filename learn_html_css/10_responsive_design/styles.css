@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* All layouts */
+.page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.section {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    background-color: #5995DA;
+    height: 80px;
+}
+
+.header {
+    background-color: #B2D6FF;
+}
+
+.content {
+    background-color: #EAEDF0;
+}
+
+.sign-up {
+    background-color: #D6E9FE;
+}
+
+.feature-1 {
+    background-color: #F5CF8E;
+}
+
+.feature-2 {
+    background-color: #F09A9D;
+}
+
+.feature-3 {
+    background-color: #C8C6FA;
+}
+
+/* Media queries begin with @media or the at-rule.
+
+Next is the "media type" (in our case only screen) which designates that the following styles should only be applied to devices with screens (as opposed to printed documents like when you try to print in browser.
+
+Other media queries include if the user is in portrait or landscape mode, the resolution of the screen, and if the user has a mouse or not.
+
+Finally is the "media feature" which is the if-statement and will only apply the following CSS if it's met.*/
+
+/* A fluid layout is one that stretches and shrinks to fill the width of the screen. 
+
+A fixed-width layout is the opposite; it has the same width regardless of the screen dimensions. */
+
+/* As a general rule of thumb, it's good to start with mobile development and work up to desktop. Smaller is usually easier and less complex. Also, think about what should be in every version of the website and start with that as your mobile base or default. Then work up from there as the website gets more complicated. This will also make it easier to maintain since you'll only have to worry about changing in one place... say the color scheme (things you want to change across all layouts.*/
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+    body {
+        background-color: #F09A9D;
+    }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+    body {
+        background-color: #F5CF8E;
+    }
+
+    .sign-up,
+    .feature-1,
+    .feature-2,
+    .feature-3 {
+        width: 50%;
+    }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+    body {
+        background-color: #B2D6FF;
+    }
+
+    .page {
+        width: 960px;
+        margin: 0 auto;
+    }
+
+    .feature-1,
+    .feature-2,
+    .feature-3 {
+        width: 33.3%;
+    }
+
+    .header {
+        height: 400px;
+    }
+
+    .sign-up {
+        height: 200px;
+        order: 1;
+    }
+
+    .content {
+        order: 2;
+    }
+}
