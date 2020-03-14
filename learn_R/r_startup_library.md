@@ -100,3 +100,64 @@ Why should you be concerned with libraries? The power of R largely comes from it
 * [A fellow R user who was just as confused as I was when I first started learning about libraries has their questions answered](https://community.rstudio.com/t/help-regarding-package-installation-renviron-rprofile-r-libs-r-libs-site-and-r-libs-user-oh-my/13888)
 * [This is for Windows but still very informative for understanding libraries, and it also has a helpful video](http://www.quintuitive.com/2018/03/31/package-paths-r/)
 * [Official R documentation concerning libraries and the library search path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/libPaths.html)
+
+## The renv package
+
+This may be a bit out of scope, but it is related to libraries. `renv` is an amazing R package designed to capture project-level R dependencies. First, let's motivate why this package is necessary and what problem it is trying to solve.
+
+This [guidance from RStudio](https://environments.rstudio.com/shared.html) expertly describes the issue. Suppose on January 1st, you install the `tibble` package and all associated dependencies (`rlang`, `cli`, `crayon`, etc.). Everything is all well and good. On February 1st, you download the `pkgdown` package. It has an overlapping set of dependencies with `tibble` (`rlang`, `cli`, `crayon`, etc.). The first problem which could arise is any previous code which relied upon those dependencies may not work now because those packages have changed. The second problem is `tibble` was not updated. As a result, `tibble` may not work because the version of `tibble` currently installed was not tested on the new versions of the dependencies.
+
+The above documentation from RStudio goes on to describe a **shared baseline** set-up where you pull from a snapshotted version of CRAN (created yourself or by using one provided by the [lovely people at MRAN](https://blog.revolutionanalytics.com/2019/05/cran-snapshots-and-you.html)). This solves the issue because every time you download a new package it comes from a stable, tested version of CRAN where all packages are guaranteed to work harmoniously together. However, it's a bit overkill for one person or a team of people. For starters, you won't be able to download any new packages or updates past the snapshot. When you do inevitably want to update, you'll have to redownload and reinstall all your packages from the new snapshot.
+
+This is where `renv` comes into play.
+
+### How renv works
+
+In a bit of a chicken-and-egg problem, I believe one has to install `renv` into their local library to get the ball rolling. Once one has it set-up with their project, they can delete their local installation. One of the main points of `renv` (as far as I can tell) is to create project-level libraries which are segregated from each other and don't pollute each other so to speak. This makes maintaining a local library which spans across all projects a bit unnecessary it seems to me. I guess I could envision some use cases here and there. Really though it seems like for a variety of the work one does in R one should be doing it in an R project using `renv`.
+
+Before we really dig in, I'll just note almost all of my notes are coming from the documentation itself for `renv` which [I link to below](#links-to-renv-documentation). I really recommend everyone read it. It's superbly written and communicates quite clearly what `renv` is doing.
+
+The general workflow while using `renv` is as follows:
+
+1. Call `renv::init()` to initialize a new project-level library.
+2. Go about coding in R to your heart's content. Install packages, update them, and delete them.
+3. When you got all the packages you need, call `renv::snapshot()` to save the state of your project-level library to `renv.lock`. A rookie mistake (which your humble author committed) is to not realize that `renv::snapshot()` only captures packages one actively invokes and uses in their project.
+4. Continue working on your project as normal and add/update/delete packages as you would.
+5. If your code is working well, you can call `renv::snapshot()` again to update the lock file. However if by adding/updating/deleting packges your code no longer works, you can call `renv::restore()` to restore your library from the lock file (which ideally is referencing a version of your library where your code worked).
+
+This is how `renv` fixes the issue described above (sort of). It doesn't prevent one from entering a state where the dependencies can get all out of sync. Instead it provides a framework for users to revert back to a time when their dependencies **were** in sync. From that state, users can figure out what specifically is causing the issue.
+
+One important thing to note is that `renv` will record which version of R is in use. It's up to the user, however, to ensure they are using the right version of R. Of course, one can use a different version of R and have no issues too.
+
+`renv` also works with Python as [outlined here](https://rstudio.github.io/renv/articles/python.html). I assume it is adequate at capturing Python dependencies, but I imagine it may be better to use more Python-specific tools.
+
+### `renv::init()`
+
+`renv::init()` is doing a bunch of things I'm not going to outline here. However, I'll touch upon the **infrastructure** it creates when it is called:
+
+1. `project_path/.Rprofile`: This ensures every new R session which is invoked in the project path activates `renv`.
+2. `project_path/renv.lock`: This is a JSON file described above which captures the state of one's project library.
+3. `project_path/renv/activate.R`: This the script which activates `renv`, and it is what is called in `.Rprofile`.
+4. `project_path/renv/library`: The private project library.
+
+For the purposes of collaborating (using something like Git or Github), one should be tracking `project_path/.Rprofile`, `project_path/renv.lock`, and `project_path/renv/activate.R`. I believe `renv::init()` ensures what should be ignored is placed into your `.gitignore` file.
+
+### `renv::upgrade`
+
+After initializing a project with `renv`, it becomes bound to that version of `renv`. To upgrade the version of `renv` associated with that project, one can use `renv::upgrade()`.
+
+### The Global Cache
+
+One of the great innovations `renv` brings to the table is the global cache from which all projects populate their libraries. If one looks in `project_path/renv/library`, they'll find all the packages are symbolic links to where the packages are actually stored (the global cache). The global cache ensures one only needs to download a package once (saving you time). Every other time a project needs that package, it can just reference the one in the global cache rather than downloading it again. You also save on disk space since you only need to store that package once. Additionally the global cache allows for multiple versions of each package to be stored so you can keep using whatever version of each package works for each project.
+
+By default on Linux platforms the cache is stored under `~/.local/share/renv`. One can also set the `RENV_PATHS_CACHE` environment variable to store the cache somewhere else (and have it be used by several people if you so desire). The documentation recommends setting this in an `.Renviron` file, but it's possible it could be set like any other normal environment variable (I think, haven't tested). It may make sense to do it the recommended way so that way all R related environment variables stick together.
+
+One can continue to use `install.packages()` and `remove.packages()` as normal. `renv` is smart enough to handle everything smoothly. For the curious, it achives this by [using shims](https://rstudio.github.io/renv/articles/renv.html#shims).
+
+### Links to renv documentation
+There is a bunch of other stuff `renv` can do! I only outlined the major things above. By working with the package, you'll get a better sense of how it works. You may also have more questions pop up. Below are a list of resources which may be of some help in answering those and any more questions you might have.
+
+* [Introduction to renv](https://rstudio.github.io/renv/articles/renv.html)
+* [An example `renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html)
+* [How renv makes it easier to collaborate/share your code](https://rstudio.github.io/renv/articles/collaborating.html). Relatedly [how one can use Git/Github to retrieve older versions of your `renv.lock` file](https://rstudio.github.io/renv/articles/renv.html#history)
+* [Function reference documentation](https://rstudio.github.io/renv/reference/index.html)
