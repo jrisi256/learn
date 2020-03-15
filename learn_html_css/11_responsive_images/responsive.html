@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8"/>
+        <title>Responsive Design</title>
+        <link rel = "stylesheet" href = "styles.css"/>
+        <meta name = "viewport" content = "width = device.width, initial-scale = 1.0, maxiumu-scale = 1.0"/>
+
+        <!-- Before responsive design during the beginning of the mobile web, mobile devices would simply zoom out to display the entire website. Then users could zoom in when appropriate to do whatever it is they wanted to do. This default behavior prevents mobile devices from rendering the mobile parts of our layout. So the above line prevents the default behavior from taking place.-->
+    </head>
+
+    <body>
+    <!--
+    
+    Responsive design refers to the idea that your website should display equally well regardless of the screen being used to view it.
+        
+    This is achieved using something called "media queries". They are a way of conditionally applying CSS rules. They tell the browser to ignore or apply certain rules depending on the user's device.
+    
+    Media queries allow us to present the same HTML content as distinct CSS layouts. So we only need ot maintain set of HTML files.s
+    -->
+
+    <div class = "page">
+        <div class = "section menu"></div>
+
+        <div class = "section header">
+            <!-- <img src = "images/header.svg"/> -->
+
+            <div class = "photo">
+
+                <!-- Our below example for the content isn't exactly what we want. Someone could have a retina display on a smartphone for example in which case they'll want the standard resolution photo. So in our srcset, we set 2000w and 1000w (instead of 1x and 2x) which says display high-res photo is 2000 pixels wide and normal photo is 1000 pixels wide. -->
+
+                <!-- Now we also use the sizes attribute which sets up a series of media queries. We're telling the browser that the image will fill the browser window up to 960px wide, after which it will always appear as 960px wide. 100vw means the image's width will be 100% of the viewport width. -->
+
+                <!-- Use this method on images 601 pixels and wider. -->
+                <img src = "images/photo-small.jpg" srcset = "images/photo-big.jpg 2000w, images/photo-small.jpg 1000w" sizes = "(min-width: 960px) 960px, 100vw)"/>
+                -->
+
+                <!-- Fancy method which should only be used sparingly. -->
+                <picture>
+                    <!-- Source element conditionally loads images based on media queries -->
+                    <!-- media attribute designates the if-clause, the srcset attributes designates which image to load -->
+                    <!-- It's nice to have this level of control, but we lost our ability to optimize for retina displays. -->
+                    <source media = "(min-width: 401px)" srcset = "images/photo-big.jpg"/>
+                    <source media = "(max-width: 400px)" srcset = "images/photo-tall.jpg"/>
+                    <img src = "images/photo-small.jpg"/> <!-- Fallback for older browsers -->
+                </picture>
+            </div>
+        </div>
+
+        <div class = "section content">
+            <!-- SVG images just work, and we don't have to worry so much about scaling them for different devices. -->
+            <!-- Inline style is OK here because it's describing an innate property of the image. Content not so much presentation. And we do this to fix the issue with our CSS where it scales the width to the heigh to maintain aspect ratio.  -->
+            <!-- <img class = "illustration" style = 'max-width: 500px' src = "images/illustration.svg"/> -->
+
+            <!-- Need to nest our image in a div so flexbox doesn't try and set the height of the image to be the same as the .content div container. -->
+            <!-- Consider this the lazy way of creating responsive images as it assumes everybody needs the high-res version of an image.-->
+            <div class='illustration'>
+                <!-- <img src='images/illustration-big.png' style='max-width: 500px'/> -->
+                
+                <!-- Doesn't make sense to send the user the high-res verison if they don't need it. Wasted data. -->
+                <!-- So we can take advantage of the srcset attribute. Points to a list of alternative images to use as long as details as to when the alternatives should be used. 1x means standard, 2x means retina. Older browsers that don't understand just use src. -->
+
+                <!-- Use this method for images 600 pixels wide or smaller. -->
+                <img src = "illustration-small.png" style = "max-width: 500px" srcset = "images/illustration-small.png 1x, images/illustration-big.png 2x"/>
+            </div>
+        </div>
+
+        <div class = "section sign-up">
+            <img src = "images/sign-up.svg"/>
+        </div>
+
+        <div class = "section feature-1">
+            <img src = "images/feature.svg"/>
+        </div>
+
+        <div class = "section feature-2">
+            <img src = "images/feature.svg"/>
+        </div>
+
+        <div class = "section feature-3">
+            <img src = "images/feature.svg"/>
+        </div>
+    </div>
+
+    </body>
+</html>
