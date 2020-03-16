@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8"/>
+        <title>Semantic HTML</title>
+    </head>
+
+    <body>
+        <!-- We are going to be learning about sectioning elements. They're kind of like "divs" but with meaning. It's important to use them so browsers and other devices can more intelligently parse your web page. This helps us avoid div soup. However, sometimes the div tag is the best choice. It may be the case none of the semantic html elements make sense, but you need to use a div tag for layout purposes (especially important for flexbox). So just use a div. Better to use a div than misuse a semantic html element. -->
+
+        <!-- May see this in some stylesheets. It's because legacy browsers don't properly recognize these new semantic HTML elements.
+            
+            section, article, aside, footer, header, nav {
+                display: block;
+            }
+        -->
+
+        <!-- Not to be confused with heading tags, the header tag is used to denote introductory content for a section, article, or entire web page. Introductory content usually means the company logo, navigational aids, welcome message, etc. -->
+        <header>
+            <h1>Interneting is Hard!</h1>
+
+            <!-- Used for marking up parts of your site that are used for navigation. -->
+            <nav>
+                <ul>
+                    <li><a href = "#">Home</a></li>
+                    <li><a href = "#">About</a></li>
+                    <li><a href = "#">Blog</a></li>
+                    <li><a href = "#">Sign up</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Here is a new sectioning HTML element. Article. What does it do? Well it doesn't change the presentation at all. It represents an article in your web page that could be plucked out and placed in a completely different context while still making sense. Think of news aggregators plucking out news articles. They're basically mini-web pages within your main web page. You can also use multiple article tags per page if you want. Useful if you're displaying something like multiple blog posts or something like that. -->
+        <article>
+
+            <!-- You can have multiple header tags per web page. Used for denoting multiple introductory parts of a web page. -->
+            <header>
+                <h1> Semantic HTML </h1>
+                <!-- time is an important tag because it allows machines to understand dates in a standardized fashion. Represents 2017-January-3rd at 3pm PCT -->
+                <p> By Troy McClure. Published <time datetime = "2017-1-3 15:00-0800">January 3</time>.</p>
+            </header>
+
+            <!-- Sometimes we want to remove information from our web page or article in this case. Say you have an advertisement. You can tag with an aside element to let machine readers know this information is only tangentially related to the article. Can also be useful for setting something aside you want to highlight like quotes, stats, or definitions. -->
+            <aside class = "advert">
+                <img src = "advert.jpeg"/>
+            </aside>
+
+            <p> This is an example web page explaining HTML5 semantic markup. </p>
+
+            <!-- Next we have the section HTML element. It doesn't need to make sense outside of its context. So it's not really a self-contained article. It's more of an explicit way to define sections within your web page (outside of using headers). You want to do this mostly for layout and presentation purposes. You want certain sections of web page styled a certain way. And this way is more descriptive than using div.-->
+            <section>
+                <h2> The Document Outline </h2>
+                <p>HTML5 includes several "sectioning content" elements that affect the document outline.</p>
+
+                <!-- Meant to encapsulate a self-contained figure which could be an image, chart, graph, or code. The figcaption element is optional and associates a caption with the image. Common use case is to add visible descriptions to img tags. The alt attribute should be a text replacement while the figcaption should serve as a description. -->
+                <figure>
+                    <img src = "lenny-awakens.jpg" alt = "Lenny wakes up in the hospital"/>
+                    <figcaption>Is Lenny a saint or a demon?</figcaption>
+                </figure>
+
+                <h3> Headers </h3>
+                <p>The <code>&lt;head&gt;</code> element is one such sectioning element. </p>
+
+                <h3> Footers </h3>
+                <p>And so is the <code>&lt;footer&gt;</code> element.</p>
+
+                <p>Here is a <a href = "https://gsnedders.html5.org/outliner/" target = "_blank">helpful link</a> for understanding how your web page is being sectioned.</p>
+            </section>
+
+            <!-- By adding these section elements, we're also disrupting the main sectioning flow of the document. Basically the below section is treated as one giant h2 tag for sectioning purposes. It can now also have its own set of h1 - h6 tags for sectioning purposes. However, one shouldn't really do that mostly because some browsers aren't able to properly discern the new sectioning flow using the section tag. Instead always use header tags to define the section flow, and only use section as a more meaningful replacement for div.
+            
+            One last important note. Always use a header tag within section otherwise you wind up with an untitled, unused header in your sectioning logic. -->
+            <section>
+                <h2> Inline Semantic HTML</h2>
+                <p>The <code>&lt;time&gt;</code> element is semantic, but it is not sectioning content.</p>
+            </section>
+
+            <!-- Footers are kind of the conceptual opposites of headers. Used to denote concluding information. Can have multiple per page. Used for copyrights, author's biography, etc. -->
+            <footer>
+                <p> This fake article was written by somebody at InternetingIsHard.com which is a pretty decent place to learn how to be a web developer. This footer is only for the containing <code>&lt;article&gt;</code> element. </p>
+
+                <!-- Defines contact information for the author of article or web page in question. Don't use for physical addresses.-->
+                <address>
+                    Please contact <a href = "mailto:troymcclure@example.com">Troy McClure</a> for questions about this article.
+                </address>
+            </footer>
+        </article>
+
+        <!-- When you use aside outside of an article, it's associated with the page as a whole. Makes it a useful tag for designating a site-wide sidebar. -->
+        <aside class = "sidebar">
+            <h2> Sidebar </h2>
+            <p>Some sidebar content</p>
+
+            <nav>
+                <h3>HTML &amp; CSS Tutorial</h3>
+                <ul>
+                    <li><a href = "#">Introduction</a></li>
+                    <li><a href = "#">Basic Web Pages</a></li>
+                    <li><a href = "#">etc.</a></li>
+                </ul>
+            </nav>
+
+            <nav>
+                <h3>Javascript Tutorial</h3>
+                <ul>
+                    <li><a href = "#">Introduction</a></li>
+                    <li><a href = "#">Hello, Javascript</a></li>
+                    <li><a href = "#">etc.</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <footer>
+            <p>&copy; 2017 InternetingIsHard.com</p>
+        </footer>
+    </body>
+</html>
