@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Hosting Your Own Font</title>
+        <link rel = "stylesheet" href = "typography.css"/>
+
+        <!-- This is adding an externally hosted font! If you go to the URL, it's a chunk of CSS.-->
+        <link href="https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <p class = "sen-font"> Here we will be giving an example of us hosting our own font. In general, try to use fonts that use the .woff extension.</p>
+
+        <p class = "sen-font"> A font family is made up of multiple font faces. Each font face is a different weight or style in the family. <strong>Weight</strong> refers to the boldness of a particular face, and <em>style</em> refers to whether it's upright, italic, condensed, extended, or some other variant of the family. High-quality fonts will have unique style and weight combinations. </p>
+
+        <p class = "sen-font"> You may notice in the above paragraph that even though we didn't supply an italics version of the font, it is still doing it (albeit somewhat poorly). The browser is sophisticated enough to create its own versions of this. But this is frowned upon in polite typography company.</p>
+
+        <p class = "sen-font"> In CSS, font weights are expressed as numeric values between 100 and 900. Black refers to the value 900. Bold refers to 700. Regular to 400. Most families don't have a face for every weight (or even every standardized weight). </p>
+
+        <p class = "external-font"> Here is an example of an externally hosted font. </p>
+
+        <p class = "default-font"> Here is an example of the default font. </p>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+/* Adding custom fonts must always be done at type of style sheet. */
+
+/* We are showing the RIGHT way to add multiple font faces. To maintain the familial relationship, we need to make sue they share the same font-family. To distinguish between them, we use font-style and font-weight. */
+
+/* Basically we are telling the browser the settings for our font faces. Then any time these settings are met in the CSS, pull the appropriate font face. Please be careful about including lots of fonts! It can degrade performance. */
+
+@font-face {
+    font-family: "Sen"; /* An internal label for how we will be referring to our font. */
+    src: url("Sen-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Sen";
+    src: url("Sen-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+
+.sen-font {
+    font-family: "Sen";
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.external-font {
+    font-family: "Liu Jian Mao Cao";
+}
+
+/* This is already the default for the strong element so we don't really need to set this. It's just for demonstration purposes. The only human-friendly keywords for weight are normal (400) and bold (700). Everything else must be a number. */
+strong {
+    font-weight: bold;
+}
+
+/* Turns off font synthesis.
+
+em, strong {
+    font-synthesis: none;
+}
+
+*/
