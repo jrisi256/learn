@@ -108,7 +108,7 @@ This may be a bit out of scope, but it is related to libraries. `renv` is an ama
 
 This [guidance from RStudio](https://environments.rstudio.com/shared.html) expertly describes the issue. Suppose on January 1st, you install the `tibble` package and all associated dependencies (`rlang`, `cli`, `crayon`, etc.). Everything is all well and good. On February 1st, you download the `pkgdown` package. It has an overlapping set of dependencies with `tibble` (`rlang`, `cli`, `crayon`, etc.). The first problem which could arise is any previous code which relied upon those dependencies may not work now because those packages have changed. The second problem is `tibble` was not updated. As a result, `tibble` may not work because the version of `tibble` currently installed was not tested on the new versions of the dependencies.
 
-The above documentation from RStudio goes on to describe a **shared baseline** set-up where you pull from a snapshotted version of CRAN (created yourself or by using one provided by the [lovely people at MRAN](https://blog.revolutionanalytics.com/2019/05/cran-snapshots-and-you.html)). This solves the issue because every time you download a new package it comes from a stable, tested version of CRAN where all packages are guaranteed to work harmoniously together. However, it's a bit overkill for one person or a team of people. For starters, you won't be able to download any new packages or updates past the snapshot. When you do inevitably want to update, you'll have to redownload and reinstall all your packages from the new snapshot.
+The above documentation from RStudio goes on to describe a **shared baseline** set-up where you pull from a snapshotted version of CRAN (created yourself or by using one provided by the [lovely people at MRAN](https://blog.revolutionanalytics.com/2019/05/cran-snapshots-and-you.html)). This solves the issue because every time you download a new package it comes from a stable, tested version of CRAN where all packages are guaranteed to work harmoniously together. However, it's a bit overkill for one person or a team of people. For starters, you won't be able to download any new packages or updates past the snapshot. When you do inevitably want to update, you'll have to re-download and reinstall all your packages from the new snapshot.
 
 This is where `renv` comes into play.
 
@@ -124,7 +124,7 @@ The general workflow while using `renv` is as follows:
 2. Go about coding in R to your heart's content. Install packages, update them, and delete them.
 3. When you got all the packages you need, call `renv::snapshot()` to save the state of your project-level library to `renv.lock`. A rookie mistake (which your humble author committed) is to not realize that `renv::snapshot()` only captures packages one actively invokes and uses in their project.
 4. Continue working on your project as normal and add/update/delete packages as you would.
-5. If your code is working well, you can call `renv::snapshot()` again to update the lock file. However if by adding/updating/deleting packges your code no longer works, you can call `renv::restore()` to restore your library from the lock file (which ideally is referencing a version of your library where your code worked).
+5. If your code is working well, you can call `renv::snapshot()` again to update the lock file. However if by adding/updating/deleting packages your code no longer works, you can call `renv::restore()` to restore your library from the lock file (which ideally is referencing a version of your library where your code worked).
 
 This is how `renv` fixes the issue described above (sort of). It doesn't prevent one from entering a state where the dependencies can get all out of sync. Instead it provides a framework for users to revert back to a time when their dependencies **were** in sync. From that state, users can figure out what specifically is causing the issue.
 
@@ -153,7 +153,7 @@ One of the great innovations `renv` brings to the table is the global cache from
 
 By default on Linux platforms the cache is stored under `~/.local/share/renv`. One can also set the `RENV_PATHS_CACHE` environment variable to store the cache somewhere else (and have it be used by several people if you so desire). The documentation recommends setting this in an `.Renviron` file, but it's possible it could be set like any other normal environment variable (I think, haven't tested). It may make sense to do it the recommended way so that way all R related environment variables stick together.
 
-One can continue to use `install.packages()` and `remove.packages()` as normal. `renv` is smart enough to handle everything smoothly. For the curious, it achives this by [using shims](https://rstudio.github.io/renv/articles/renv.html#shims).
+One can continue to use `install.packages()` and `remove.packages()` as normal. `renv` is smart enough to handle everything smoothly. For the curious, it achieves this by [using shims](https://rstudio.github.io/renv/articles/renv.html#shims).
 
 ### Links to renv documentation
 There is a bunch of other stuff `renv` can do! I only outlined the major things above. By working with the package, you'll get a better sense of how it works. You may also have more questions pop up. Below are a list of resources which may be of some help in answering those and any more questions you might have.
