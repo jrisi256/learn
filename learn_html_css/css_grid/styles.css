@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.color-1 {
+    background-color: lightblue;
+}
+
+.color-2 {
+    background-color: red;
+}
+
+.color-3 {
+    background-color: yellow;
+}
+
+.color-4 {
+    background-color: lightgreen;
+}
+
+.color-5 {
+    background-color: forestgreen;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 200px 100px 250px; /* number of columns and their width */
+    grid-template-rows: 50px 50px 50px; /* number of rows and their height */
+    
+    /* shortcut */
+    /* grid-template-columns: repeat(5, 250px);*/
+
+    grid-gap: 5%; /* used for defining the gaps between cells, can be relative or absolute (px) */
+
+    /* can also define gaps just between columns and rows */
+    /* column-gap: 10px; */
+    /* row-gap: 10px; */
+
+    background-color: khaki;
+    border: 2px solid red;
+    margin: 50px;
+}
+
+.wrapper div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid black;
+}
+
+.wrapper2 {
+    display: grid;
+    grid-template-columns: 100px 3fr 2fr; /* can use fancy fractional units to have item take up 100px, 3/5th, and 2/5th of available width */
+    grid-template-rows: 100px 100px;
+    
+    background-color: lightblue;
+    border: 2px solid red;
+    margin: 25px;
+}
+
+.wrapper2 div {
+    border: 2px solid black;
+}
+
+.wrapper3 {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    grid-template-rows: 100px 100px 100px;
+
+    background-color: lightgoldenrodyellow;
+    border: 2px solid red;
+    margin: 60px
+}
+
+.wrapper3 div {
+    border: 2px solid black;
+}
+
+/* can use grid-column and grid-row (or grid-column/row-start and grid-column/row-end) for positioning our individual items within the grid */
+
+.item1 {
+    grid-column: 2 / 4; /* Start at column line and end at column line 4 */
+    grid-row: 3 / 4; /* start at row line 3 and at row line 4 */
+}
+
+.item5 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+}
+
+/* works with media queries */
+@media only screen and (max-width: 720px){
+
+    .wrapper3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .item1 {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .item5 {
+        grid-row: 1 / 1;
+    }
+  }
