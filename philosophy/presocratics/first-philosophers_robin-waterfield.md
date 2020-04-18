@@ -4,7 +4,7 @@
 
 * Translator/Author: Robin Waterfield
 * Title: The First Philosophers: The Presocratics and the Sophists
-* Publication Date: 2000
+* Publication Year: 2000
 
 ## Introduction
 
