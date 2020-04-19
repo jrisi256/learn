@@ -75,3 +75,17 @@ In conclusion, probability is a **real-valued**, **non-negative**, **countably a
     * P(B) = 1 / 3
     * P(A) = 1 / 2
     * P(B) - (P) != P(B - A)
+
+* **Definition 1.2**: A point is said to be randomly selected from an interval (a, b) if any two sub-intervals of (a, b) that have the same length are equally likely to include the point. The probability associated with the event that the sub-interval (c, d) contains the point is defined to be (d - c) / (b - a).
+
+The book has a very interesting explanation and investigation of this definition. The model to keep in mind is you have a box with infinitely many balls with each ball given exactly one number from (a, b) and each number from (a, b) can be found on only one ball. The balls are completely mixed up so then in a random selection every ball has the same chance as being drawn as any other ball.
+
+#### Simulation
+
+As we know, choosing a random number from a given interval is, in practice, impossible. To perform simulation, we must use pseudo-random numbers instead. To generate *n* pseudo-random numbers from a uniform distribution on (a, b), we take an initial value *x₀* ∈ (a, b) which is called the **seed**. We then construct a function *f* so that the sequence {x₁, x₂, ..., xₙ} ⊂ (a, b) obtained recursively from *xᵢ₊₁ = f(xᵢ), 0 ≤ i ≤ n - 1* satisfies certain statistical tests for randomness.
+
+Because the numbers generated are rounded to a certain number of decimal places, *f* can only generate a finite number of pseudo-random numbers. This implies eventually some xⱼ will be generated a second time. From that point on, the same sequence of numbers that appeared after xⱼ's first appearance will reappear. Beyond that point, numbers are no longer sufficiently random. *f* is constructed in such a way so as to postpone this for as long as possible.
+
+So it is surprising that there are deterministic real-valued functions *f* that for each i generate an xᵢ₊₁ that is completely determined by xᵢ and yet the sequence {x₁, x₂, ..., xₙ} will still pass certain statistical tests of randomness.
+
+### Chapter 2
