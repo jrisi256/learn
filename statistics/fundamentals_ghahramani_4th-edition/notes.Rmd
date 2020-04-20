@@ -1,4 +1,7 @@
-# Fundamentals of Probability with Stochastic Processes: 4th Edition
+---
+title: "Fundamentals of Probability with Stochastic Processes: 4th Edition"
+output: html_document
+---
 
 ## Book Info
 
@@ -89,3 +92,74 @@ Because the numbers generated are rounded to a certain number of decimal places,
 So it is surprising that there are deterministic real-valued functions *f* that for each i generate an xᵢ₊₁ that is completely determined by xᵢ and yet the sequence {x₁, x₂, ..., xₙ} will still pass certain statistical tests of randomness.
 
 ### Chapter 2
+
+* **Theorem 2.1 (The Counting Principle)**: If the set *E* contains *n* elements and the set *F* contains *m* elements then there are *n \* m* ways in which we can choose, first, an element of *E* then an element of *F*.
+
+* **Theorem 2.2 (The Generalized Counting Principle)**: Let E₁, E₂, ..., Eₖ be sets with n₁, n₂, ..., nₖ elements, respectively. There are then n₁ \* n₂ \* ... \* nₖ ways in which we can choose, first, an element from E₁, then an element from E₂, so on and so forth until we choose a final element from Eₖ.
+
+An important concept is drawing cards, balls, or anything **with replacement** or **without replacement**. When something is drawn with replacement, it is replaced. If something is drawn without replacement, it is not replaced.
+
+Let's do some example problems.
+
+* **Example 2.1**: How many outcomes are there if we throw five dice?
+
+```{r}
+6 * 6 * 6 * 6 * 6
+```
+
+* **Example 2.2**: In tossing four dice, what is the probability at least one is 3? We can find the numerator by finding **1 - the complement** or **1 - the number of outcomes where you get no 3s**. We will get into later how to calculate the numerator more directly (it's a bit trickier to do).
+
+```{r}
+# Denominator
+denom <- 6 * 6 * 6 * 6
+
+# Numerator
+numer <- 5 * 5 * 5 * 5
+
+# Probability
+prob <- 1 - (numer/denom)
+```
+
+* **Example 2.4**: A box contains 7 balls numbered 1 through 7. Three balls are drawn one by one, at random, and with replacement. What is the probability that A) all three outcomes are odd? and B) exactly one outcome is odd?
+
+The exactly one odd outcome is a bit trickier. 4 \* 3 \* 3 represents the total number of outcomes where the odd number is drawn on the first ball and the first ball only. 3 \* 4 \* 3 represents the total number of outcomes where the odd number is drawn on the second ball and the second ball only. Finally 3 \* 3 \* 4 represents the total number of outcomes where the odd number is drawn on the third ball and the third ball only.
+
+```{r}
+denom <- 7 * 7 * 7 # Total number of possible ways to draw the balls
+numerA <- 4 * 4 * 4 # Total number of possible ways to draw exactly 3 odd balls
+probA <- numerA / denom
+
+numerB <- (4 * 3 * 3) * 3 # Total # of possible ways to draw exactly 1 odd ball
+probB <- numerB / denom
+```
+
+* **Example 2.5**: A box contains 7 balls numbered 1 through 7. Three balls are drawn one by one, at random, and without replacement. What is the probability that A) all three outcomes are odd? and B) exactly one outcome is odd?
+
+Again the exactly one odd outcome is a bit trickier. 4 \* 3 \* 2 represents the total number of outcomes where the odd number is drawn on the first ball and first ball only and even numbers are drawn on the second two balls.
+
+```{r}
+denom <- 7 * 6 * 5 # Total number of ways to draw the balls
+numerA <- 4 * 3 * 2 # Total number of possible ways to draw exactly 3 odd balls
+probA <- numerA / denom
+
+numerB <- (4 * 3 * 2) * 3
+probB <- numerB / denom
+```
+
+* **Example 2.6**: I'm doing this problem a bit differently than the book does it because I'm doing it better. Suppose there are *n* people at a party. If everyone shakes hands with everyone else at the party exactly once, what is the number of handshakes?
+
+    * Two ways of thinking about this problem:
+    
+        * **Solution 1**: If there are *n* people at the party, then they shake hands with *n - 1* people. This means there are *n* possible people each of which is conducting *n - 1* handshakes. However we are overcounting because *person A shaking hands with person B* and *person B shaking hands with person A* is technically the same handshake, but we count it twice. We are doing this for every handshake. So we need to divide by 2, and we arrive at our answer: **(n \* (n - 1)) / 2**
+        
+        * **Solution 2**: Another way to think about this problem is suppose guests arrive one at a time. The first person won't be able to conduct a handshake. The second person arrives and shakes hands with *n - 1* people. The third person arrives and shakes hands with *n - 2* people and so on and so forth. This means there will be *(n - 1) + (n - 2) + (n - 3) + ... + 3 + 2 + 1* handshakes which is the very famous sequence: **(n \* (n - 1)) / 2** 
+Really the famous sequence is **(n \* (n + 1)) / 2**. This is a shortcut for finding the sum of a sequence of numbers {1, 2, ..., n}. However, if you wanted to find the sum of a sequence of numbers {1, 2, ..., n - 1} (which is what we are doing above) then it is **(n \* (n - 1)) / 2**. If we wanted find the sum of {1, 2, ..., n - 2} then it would become **((n - 1) \* (n - 2)) / 2**. How did we get this derivation? Well let's start at the beginning **(n \* (n + 1)) / 2** which is equal to **n + (n - 1) + (n - 2) + ... + 3 + 2 + 1**. When we only want to find the sum up to **n - 1** we need to remove **n** from the equation so now it is **(n - 1) + (n - 2) + ... + 3 + 2 + 1**. We then also need to remove it from our formula:
+
+[(n \* (n + 1)) / 2] - (2n / 2) = [(n \* (n - 1)) / 2]
+
+A similar thing happens when we want to sum only up to **n - 2**:
+
+1. [(n \* (n + 1)) / 2] - (n + n - 1)
+2. (n + n - 1) transforms into [(4n - 2) / 2]
+3. Our original formulation in step 1 through algebra becomes [(n² - 3n + 2) / 2]
+4. We can factor to get: **((n - 1) \* (n - 2)) / 2**
