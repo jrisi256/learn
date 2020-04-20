@@ -1,5 +1,5 @@
 ---
-title: "Fundamentals of Probability with Stochastic Processes: 4th Edition"
+title: 'Fundamentals of Probability with Stochastic Processes: 4th Edition'
 output: html_document
 ---
 
@@ -13,89 +13,91 @@ output: html_document
 
 #### Review of Set Theory
 
-For all following notation, the sample space is defined by *S*.
+For all following notation, the sample space is defined by $S$.
 
-* **Subset**: Event *E* is said to be a subset of event *F* if whenever *E* occurs, *F* also occurs. This means all sample points/elements of *E* are contained within *F*.
-  * **Notation**: E ⊆ F
-* **Equality**: Events *E* and *F* are said to be equal if the occurrence of *E* implies the occurrence of *F* and vice versa.
-  * **Notation**: E ⊆ F and F ⊆ E which means E = F.
-* **Intersection**: An event is called the intersection of two events, *E* and *F*, if it occurs only whenever *E* and *F* occur simultaneously.
-  * **Notation**: E ∩ F or EF
-* **Union**: An event is called the union of two events, *E* and *F*, if it occurs whenever at least one of them occurs.
-  * **Notation**: E ∪ F
-* **Complement**: An event is called the complement of an event, *E*, if it only occurs whenever *E* does not occur.
-  * **Notation**: Eᶜ
-* **Difference**: An event is called the difference of two events, *E* and *F*, if it occurs whenever *E* occurs but *F* does not.
-  * **Notation**; E - F and Eᶜ = S - E and E - F = E ∩ Fᶜ
+* **Subset**: Event $E$ is said to be a subset of event $F$ if whenever $E$ occurs, $F$ also occurs. This means all sample points/elements of $E$ are contained within $F$.
+  * **Notation**: $E \subseteq F$
+* **Equality**: Events $E$ and $F$ are said to be equal if the occurrence of $E$ implies the occurrence of $F$ and vice versa.
+  * **Notation**: $E \subseteq F$ and $F \subseteq E$ which means $E = F$.
+* **Intersection**: An event is called the intersection of two events, $E$ and $F$, if it occurs only whenever $E$ and $F$ occur simultaneously.
+  * **Notation**: $E \cap F$ or $EF$
+* **Union**: An event is called the union of two events, $E$ and $F$, if it occurs whenever at least one of them occurs.
+  * **Notation**: $E \cup B$
+* **Complement**: An event is called the complement of an event, $E$, if it only occurs whenever $E$ does not occur.
+  * **Notation**: $E^{c}$
+* **Difference**: An event is called the difference of two events, $E$ and $F$, if it occurs whenever $E$ occurs but $F$ does not.
+  * **Notation**; $E - F$ and $E^{c} = S - E$ and $E - F = E \cap F^{c}$
 * **Impossibility**: An event is impossible if there is certainty in its non-occurrence.
-  * **Notation**: ∅ and Sᶜ
-* **Mutually Exclusive**: If the joint occurrence of two events *E* and *F* is impossible, we say that *E* and *F* are mutually exclusive. Thus *E* and *F* are mutually exclusive if the occurrence of *E* precludes the occurrence of *F* and vice versa.
-  * **Notation**: E ∩ F = ∅
+  * **Notation**: $\varnothing$ and $S^{c}$
+* **Mutually Exclusive**: If the joint occurrence of two events $E$ and $F$ is impossible, we say that $E$ and $F$ are mutually exclusive. Thus $E$ and $F$ are mutually exclusive if the occurrence of $E$ precludes the occurrence of $F$ and vice versa.
+  * **Notation**: $E \cap F = \varnothing$
 
 Sets and set operations also follow certain laws from arithmetic:
 
-* **Commutative**: E ∪ F = F ∪ E and EF = FE
-* **Associative**: E ∪ (F ∪ G) = (E ∪ F) ∪ G and E(FG) = (EF)G
-* **Distributive**: (EF) ∪ H = (E ∪ H)(F ∪ H) and (E ∪ F)H = (EH) ∪ (FH)
-* **De Morgan's 1st Law**: (E ∪ F)ᶜ = EᶜFᶜ
-* **De Morgan's 2nd Law**: (EF)ᶜ = Eᶜ U Fᶜ
+* **Commutative**: $E \cup F = F \cup E$ and $EF = FE$
+* **Associative**: $E \cup (F \cup G) = (E \cup F) \cup G$ and $E(FG) = (EF)G$
+* **Distributive**: $(EF) \cup H = (E \cup H)(F \cup H)$ and $(E \cup F)H = (EH) \cup (FH)$
+* **De Morgan's 1st Law**: $(E \cup F)^{c} = E^{c}F^{c}$
+* **De Morgan's 2nd Law**: $(EF)^{c} = E^{c} \cup F^{c}$
 
 #### Review of Probability Axioms (statements which don't need to be proven true)
 
-Let *S* be the sample space of a random phenomenon. Suppose that each event *Aᵢ* of S has a number denoted by *P(A)*. If *P* satisfies the following axioms then it is to be called a probability.
+Let $S$ be the sample space of a random phenomenon. Suppose that each event $A_{i}$ of $S$ has a number denoted by $P(A)$. If $P$ satisfies the following axioms then it is to be called a probability.
 
-* **Axiom 1**: P(A) ≥ 0
-* **Axiom 2**: P(S) = 1
-* **Axiom 3**: If {A₁, A₂, A₃, ...} is a sequence of mutually exclusive events then the probability of the union of these events happening is equal to the summation of the probabilities for each of these events.
+* **Axiom 1**: $P(A) \ge 0$
+* **Axiom 2**: $P(S) = 1$
+* **Axiom 3**: If $\{A₁, A₂, A₃, ...\}$ is a sequence of mutually exclusive events then the probability of the union of these events happening is equal to the summation of the probabilities for each of these events.
   * Also known as the axiom of countable additivity.
   * This also implies you can add the probability of mutually exclusive events to get the probability of the union of those events happening.
-  * In English, this is usually denoted with *or*. For example, what is the probability of rolling a 1 **OR** a 2 **OR** a 3? You can simply add the individual probabilities to find out. You **CANNOT** do this for events which are not mutually exclusive.
-* **Theorem 1.6**: Yes I know my theorems are out of order so sue me. It seemed appropriate to place here. This theorem states that: P(A ∪ B) = P(A) + P(B) - P(AB).
-  * For mutually exclusive events, P(AB) is 0 since they never intersect.
+  * In English, this is usually denoted with **or**. For example, what is the probability of rolling a 1 **OR** a 2 **OR** a 3? You can simply add the individual probabilities to find out. You **CANNOT** do this for events which are not mutually exclusive.
+* **Theorem 1.6**: Yes I know my theorems are out of order so sue me. It seemed appropriate to place here. This theorem states that: $P(A \cup B) = P(A) + P(B) - P(AB)$.
+  * For mutually exclusive events, $P(AB)$ is 0 since they never intersect.
   * For non-mutually exclusive events, we have to subtract off the intersection because otherwise we are double counting.
-* From **Axiom 3** and **Theorem 1.6**, we can generalize to find the P(A₁ ∪ A₂ ∪ ... Aₙ) i.e. the probability that at least one of the events occur. **Inclusion-Exclusion Principle**: To calculate P(A₁ ∪ A₂ ∪ ... Aₙ) first find all of the possible intersections of these events and calculate those probabilities. Then add the probabilities of those intersections that are formed by an odd number of events and subtract the probabilities of those formed of an even number of events. The intuition being we have to add back in those intersections which we were subtracting out (we don't want to double under-count).
+* From **Axiom 3** and **Theorem 1.6**, we can generalize to find the $P(A_{1} \cup A_{2} \cup ... \cup A_{n})$ i.e. the probability that at least one of the events occur. **Inclusion-Exclusion Principle**: To calculate $P(A_{1} \cup A_{2} \cup ... \cup A_{n})$first find all of the possible intersections of these events and calculate those probabilities. Then add the probabilities of those intersections that are formed by an odd number of events and subtract the probabilities of those formed of an even number of events. The intuition being we have to add back in those intersections which we were subtracting out (we don't want to double under-count).
 
 Some theorems we can deduce from these axioms:
 
-* **Theorem 1.1**: P(∅) = 0
-* **Theorem 1.2**: If {A₁, A₂, A₃, ..., Aₙ} is a sequence of mutually exclusive events, then the probability of the union of these events happening is equal to the summation of the probabilities for each of these events.
+* **Theorem 1.1**: $P(\varnothing) = 0$
+* **Theorem 1.2**: If $\{A_{1}, A_{2}, A_{3}, ..., A_{n}\}$ is a sequence of mutually exclusive events, then the probability of the union of these events happening is equal to the summation of the probabilities for each of these events.
   * Axiom 3 is stated for a countably infinite collection of mutually exclusive events. Theorem 1.2 demonstrates this property holds for a finite collection of mutually exclusive events as well.
 
-We can finally come to some definition of probability. If we have a sample space *S* then we also have ℙ(S) which is the set of all subsets of *S* (aka the **power set**). The aim of probability theory is to associate a number between 0 and 1 to every subset of the sample space. Probability is thus a function *P* whose domain is ℙ(S) and whose range is [0, 1]. Since the domain of the *P* (probability function) is a collection of sets, it is called a **set function**.
+We can finally come to some definition of probability. If we have a sample space $S$ then we also have $\mathcal{P}(S)$ which is the set of all subsets of $S$ (aka the **power set**). The aim of probability theory is to associate a number between 0 and 1 to every subset of the sample space. Probability is thus a function $P$ whose domain is $\mathcal{P}(S)$ and whose range is $[0, 1]$. Since the domain of the $P$ (probability function) is a collection of sets, it is called a **set function**.
 
 In conclusion, probability is a **real-valued**, **non-negative**, **countably additive**, **set function**.
 
-* **Theorem 1.3**: Let *S* be the sample space. If *S* has *N* points that are all equally likely to occur then for any event *A* of *S*: P(A) = N(A) / N.
-* **Theorem 1.4**: For any event *A*, P(Aᶜ) = 1 - P(A)
-* **Theorem 1.5**: If A ⊆ B then P(B - A) = P(B) - P(A).
-  * **Corollary**: If A ⊆ B then P(A) ≤ P(B).
+* **Theorem 1.3**: Let $S$ be the sample space. If $S$ has $N$ points that are all equally likely to occur then for any event $A$ of $S$: $P(A) = \frac{N(A)}{N}$.
+* **Theorem 1.4**: For any event $A$, $P(A^{c}) = 1 - P(A)$
+* **Theorem 1.5**: If $A \subseteq B$ then $P(B - A) = P(B) - P(A)$.
+  * **Corollary**: If $A \subseteq B$ then $P(A) \le P(B)$.
   * **Interpretation**: It is more likely for a computer to have at least one defect versus having exactly one defect.
-  * **Note**: The condition of A ⊆ B is very important. For example in rolling a single, fair die let's say we define:
-    * B = {1, 2}
-    * A = {3, 4, 5}
-    * B - A = {1,2}
-    * P(B - A) = 1 / 3
-    * P(B) = 1 / 3
-    * P(A) = 1 / 2
-    * P(B) - (P) != P(B - A)
+  * **Note**: The condition of $A \subseteq B$ is very important. For example in rolling a single, fair die let's say we define:
+  \begin{align*}
+  &B = \{1, 2\} \\
+  &A = \{3, 4, 5\} \\
+  &B - A = \{1,2\} \\
+  &P(B - A) = \frac{1}{3} \\
+  &P(B) = \frac{1}{3} \\
+  &P(A) = \frac{1}{2} \\
+  &P(B) - P(A) \neq P(B - A)
+  \end{align*}
 
-* **Definition 1.2**: A point is said to be randomly selected from an interval (a, b) if any two sub-intervals of (a, b) that have the same length are equally likely to include the point. The probability associated with the event that the sub-interval (c, d) contains the point is defined to be (d - c) / (b - a).
+* **Definition 1.2**: A point is said to be randomly selected from an interval $(a, b)$ if any two sub-intervals of $(a, b)$ that have the same length are equally likely to include the point. The probability associated with the event that the sub-interval $(c, d)$ contains the point is defined to be $\frac{d - c}{b - a}$.
 
-The book has a very interesting explanation and investigation of this definition. The model to keep in mind is you have a box with infinitely many balls with each ball given exactly one number from (a, b) and each number from (a, b) can be found on only one ball. The balls are completely mixed up so then in a random selection every ball has the same chance as being drawn as any other ball.
+The book has a very interesting explanation and investigation of this definition. The model to keep in mind is you have a box with infinitely many balls with each ball given exactly one number from $(a, b)$ and each number from $(a, b)$ can be found on only one ball. The balls are completely mixed up so then in a random selection every ball has the same chance as being drawn as any other ball.
 
 #### Simulation
 
-As we know, choosing a random number from a given interval is, in practice, impossible. To perform simulation, we must use pseudo-random numbers instead. To generate *n* pseudo-random numbers from a uniform distribution on (a, b), we take an initial value *x₀* ∈ (a, b) which is called the **seed**. We then construct a function *f* so that the sequence {x₁, x₂, ..., xₙ} ⊂ (a, b) obtained recursively from *xᵢ₊₁ = f(xᵢ), 0 ≤ i ≤ n - 1* satisfies certain statistical tests for randomness.
+As we know, choosing a random number from a given interval is, in practice, impossible. To perform simulation, we must use pseudo-random numbers instead. To generate $n$ pseudo-random numbers from a uniform distribution on $(a, b)$, we take an initial value $x_{0} \in (a, b)$ which is called the **seed**. We then construct a function $f$ so that the sequence $\{x_{1}, x_{2}, ..., x_{n}\} \subset (a, b)$ obtained recursively from $x_{i + 1} = f(x_{i}), 0 \le i \le n - 1$ satisfies certain statistical tests for randomness.
 
-Because the numbers generated are rounded to a certain number of decimal places, *f* can only generate a finite number of pseudo-random numbers. This implies eventually some xⱼ will be generated a second time. From that point on, the same sequence of numbers that appeared after xⱼ's first appearance will reappear. Beyond that point, numbers are no longer sufficiently random. *f* is constructed in such a way so as to postpone this for as long as possible.
+Because the numbers generated are rounded to a certain number of decimal places, $f$ can only generate a finite number of pseudo-random numbers. This implies eventually some xⱼ will be generated a second time. From that point on, the same sequence of numbers that appeared after xⱼ's first appearance will reappear. Beyond that point, numbers are no longer sufficiently random. $f$ is constructed in such a way so as to postpone this for as long as possible.
 
-So it is surprising that there are deterministic real-valued functions *f* that for each i generate an xᵢ₊₁ that is completely determined by xᵢ and yet the sequence {x₁, x₂, ..., xₙ} will still pass certain statistical tests of randomness.
+So it is surprising that there are deterministic real-valued functions $f$ that for each $i$ generate an $x_{i + 1}$ that is completely determined by $x_{i}$ and yet the sequence $\{x_{1}, x_{2}, ..., x_{n}\}$ will still pass certain statistical tests of randomness.
 
 ### Chapter 2
 
-* **Theorem 2.1 (The Counting Principle)**: If the set *E* contains *n* elements and the set *F* contains *m* elements then there are *n \* m* ways in which we can choose, first, an element of *E* then an element of *F*.
+* **Theorem 2.1 (The Counting Principle)**: If the set $E$ contains $n$ elements and the set $F$ contains $m$ elements then there are $n * m$ ways in which we can choose, first, an element of $E$ then an element of $F$.
 
-* **Theorem 2.2 (The Generalized Counting Principle)**: Let E₁, E₂, ..., Eₖ be sets with n₁, n₂, ..., nₖ elements, respectively. There are then n₁ \* n₂ \* ... \* nₖ ways in which we can choose, first, an element from E₁, then an element from E₂, so on and so forth until we choose a final element from Eₖ.
+* **Theorem 2.2 (The Generalized Counting Principle)**: Let $E_{1}, E_{2}, ..., E_{k}$ be sets with $n_{1}, n_{2}, ..., n_{k}$ elements, respectively. There are then $n_{1} * n_{2} * ... * n_{k}$ ways in which we can choose, first, an element from $E_{1}$, then an element from $E_{2}$, so on and so forth until we choose a final element from $E_{k}$.
 
 An important concept is drawing cards, balls, or anything **with replacement** or **without replacement**. When something is drawn with replacement, it is replaced. If something is drawn without replacement, it is not replaced.
 
@@ -107,59 +109,100 @@ Let's do some example problems.
 6 * 6 * 6 * 6 * 6
 ```
 
-* **Example 2.2**: In tossing four dice, what is the probability at least one is 3? We can find the numerator by finding **1 - the complement** or **1 - the number of outcomes where you get no 3s**. We will get into later how to calculate the numerator more directly (it's a bit trickier to do).
+* **Example 2.2**: In tossing four dice, what is the probability at least one is 3? We can find the numerator by finding **1 - the complement** or **1 - the number of outcomes where you get no 3s**.
 
 ```{r}
 # Denominator
 denom <- 6 * 6 * 6 * 6
+denom
 
 # Numerator
 numer <- 5 * 5 * 5 * 5
+numer
 
 # Probability
-prob <- 1 - (numer/denom)
+1 - (numer/denom)
+```
+
+Of course we can also do this the hard mode way. We find the *P(all four dice are 3)* + *P(three dice show 3)* + *P(two dice show 3)* + *P(one die shows 3)*. We will see in later chapters how to do this in an easier fashion although it still won't ever be as easy as the above method.
+
+How many outcomes are there which would result in all four dice having a 3? This is easy. There is only **1** way for this to happen.
+
+How many outcomes are there which would result in **exactly** three dice having a 3? Well let's see. There are $1 * 1 * 1 * 5$ ways in which the first three dice could have a 3. Then there are $1 * 1 * 5 * 1$ ways in which the first, second, and fourth die all have 3. Next there are $1 * 5 * 1 * 1$ ways in which the first, third, and fourth die all have 3. Finally we have $5 * 1 * 1 * 1$ ways in which the last three dice have a 3.
+
+We would then repeat these steps for the situation in which there are two dice that have a 3 and then finally one die which has a 3.
+
+```{r}
+exact4 <- 1
+exact3 <- (1 * 1 * 1 * 5) * 4
+exact2 <- (1 * 1 * 5 * 5) * 6
+exact1 <- (1 * 5 * 5 * 5) * 4
+
+newNumer <- exact4 + exact3 + exact2 + exact1
+newNumer
+
+newNumer / denom
 ```
 
 * **Example 2.4**: A box contains 7 balls numbered 1 through 7. Three balls are drawn one by one, at random, and with replacement. What is the probability that A) all three outcomes are odd? and B) exactly one outcome is odd?
 
-The exactly one odd outcome is a bit trickier. 4 \* 3 \* 3 represents the total number of outcomes where the odd number is drawn on the first ball and the first ball only. 3 \* 4 \* 3 represents the total number of outcomes where the odd number is drawn on the second ball and the second ball only. Finally 3 \* 3 \* 4 represents the total number of outcomes where the odd number is drawn on the third ball and the third ball only.
+The exactly one odd outcome is a bit trickier. $4 * 3 * 3$ represents the total number of outcomes where the odd number is drawn on the first ball and the first ball only. $3 * 4 * 3$ represents the total number of outcomes where the odd number is drawn on the second ball and the second ball only. Finally $3 * 3 * 4$ represents the total number of outcomes where the odd number is drawn on the third ball and the third ball only.
 
 ```{r}
 denom <- 7 * 7 * 7 # Total number of possible ways to draw the balls
+denom
+
 numerA <- 4 * 4 * 4 # Total number of possible ways to draw exactly 3 odd balls
+numerA
+
 probA <- numerA / denom
+probA
 
 numerB <- (4 * 3 * 3) * 3 # Total # of possible ways to draw exactly 1 odd ball
+numerB
+
 probB <- numerB / denom
+probB
 ```
 
 * **Example 2.5**: A box contains 7 balls numbered 1 through 7. Three balls are drawn one by one, at random, and without replacement. What is the probability that A) all three outcomes are odd? and B) exactly one outcome is odd?
 
-Again the exactly one odd outcome is a bit trickier. 4 \* 3 \* 2 represents the total number of outcomes where the odd number is drawn on the first ball and first ball only and even numbers are drawn on the second two balls.
+Again the exactly one odd outcome is a bit trickier. $4 * 3 * 2$ represents the total number of outcomes where the odd number is drawn on the first ball and first ball only and even numbers are drawn on the second two balls. $3 * 4 * 2$ represents the number of outcomes where the odd number is drawn on the second ball and the second ball only and even numbers are drawn on the first and third balls. Finally, $3 * 2 * 4$ represents the number of outcomes where the odd number is drawn on the third ball and the third ball only and even numbers are drawn on the first two balls.
 
 ```{r}
 denom <- 7 * 6 * 5 # Total number of ways to draw the balls
-numerA <- 4 * 3 * 2 # Total number of possible ways to draw exactly 3 odd balls
-probA <- numerA / denom
+denom
 
-numerB <- (4 * 3 * 2) * 3
+numerA <- 4 * 3 * 2 # Total number of possible ways to draw exactly 3 odd balls
+numerA
+
+probA <- numerA / denom
+probA
+
+numerB <- (4 * 3 * 2) * 3 # Total # of possible ways to draw exactly 1 odd ball
+numerB
+
 probB <- numerB / denom
+probB
 ```
 
-* **Example 2.6**: I'm doing this problem a bit differently than the book does it because I'm doing it better. Suppose there are *n* people at a party. If everyone shakes hands with everyone else at the party exactly once, what is the number of handshakes?
+* **Example 2.6**: I'm doing this problem a bit differently than the book does it because I'm doing it better. Suppose there are $n$ people at a party. If everyone shakes hands with everyone else at the party exactly once, what is the number of handshakes?
 
     * Two ways of thinking about this problem:
     
-        * **Solution 1**: If there are *n* people at the party, then they shake hands with *n - 1* people. This means there are *n* possible people each of which is conducting *n - 1* handshakes. However we are overcounting because *person A shaking hands with person B* and *person B shaking hands with person A* is technically the same handshake, but we count it twice. We are doing this for every handshake. So we need to divide by 2, and we arrive at our answer: **(n \* (n - 1)) / 2**
+        * **Solution 1**: If there are $n$ people at the party, then they shake hands with $n - 1$ people. This means there are $n$ possible people each of which is conducting $n - 1$ handshakes. However we are overcounting because *person A shaking hands with person B* and *person B shaking hands with person A* is technically the same handshake, but we count it twice. We are doing this for every handshake. So we need to divide by 2, and we arrive at our answer: $n * \frac{n - 1}{2}$
         
-        * **Solution 2**: Another way to think about this problem is suppose guests arrive one at a time. The first person won't be able to conduct a handshake. The second person arrives and shakes hands with *n - 1* people. The third person arrives and shakes hands with *n - 2* people and so on and so forth. This means there will be *(n - 1) + (n - 2) + (n - 3) + ... + 3 + 2 + 1* handshakes which is the very famous sequence: **(n \* (n - 1)) / 2** 
-Really the famous sequence is **(n \* (n + 1)) / 2**. This is a shortcut for finding the sum of a sequence of numbers {1, 2, ..., n}. However, if you wanted to find the sum of a sequence of numbers {1, 2, ..., n - 1} (which is what we are doing above) then it is **(n \* (n - 1)) / 2**. If we wanted find the sum of {1, 2, ..., n - 2} then it would become **((n - 1) \* (n - 2)) / 2**. How did we get this derivation? Well let's start at the beginning **(n \* (n + 1)) / 2** which is equal to **n + (n - 1) + (n - 2) + ... + 3 + 2 + 1**. When we only want to find the sum up to **n - 1** we need to remove **n** from the equation so now it is **(n - 1) + (n - 2) + ... + 3 + 2 + 1**. We then also need to remove it from our formula:
+        * **Solution 2**: Another way to think about this problem is suppose guests arrive one at a time. The first person won't be able to conduct a handshake. The second person arrives and shakes hands with $n - 1$ people. The third person arrives and shakes hands with $n - 2$ people and so on and so forth. This means there will be $(n - 1) + (n - 2) + (n - 3) + ... + 3 + 2 + 1$ handshakes which is the very famous sequence: $n * \frac{n - 1}{2}$
+        
+Really the famous sequence is $n * \frac{n + 1}{2}$. This is a shortcut for finding the sum of a sequence of numbers $\{1, 2, ..., n\}$. However, if you wanted to find the sum of a sequence of numbers $\{1, 2, ..., n - 1\}$ (which is what we are doing above) then it is $n * \frac{n - 1}{2}$. If we wanted find the sum of ${1, 2, ..., n - 2}$ then it would become $(n - 1) * \frac{n - 2}{2}$. How did we get this derivation? Well let's start at the beginning $n * \frac{n + 1}{2}$ which is equal to $n + (n - 1) + (n - 2) + ... + 3 + 2 + 1$. When we only want to find the sum up to $n - 1$ we need to remove $n$ from the equation so now it is $(n - 1) + (n - 2) + ... + 3 + 2 + 1$. We then also need to remove it from our formula:
 
-[(n \* (n + 1)) / 2] - (2n / 2) = [(n \* (n - 1)) / 2]
+$(n * \frac{n+1}{2}) - \frac{2n}{2} = n * \frac{n - 1}{2}$
 
-A similar thing happens when we want to sum only up to **n - 2**:
+A similar thing happens when we want to sum only up to $n - 2$:
 
-1. [(n \* (n + 1)) / 2] - (n + n - 1)
-2. (n + n - 1) transforms into [(4n - 2) / 2]
-3. Our original formulation in step 1 through algebra becomes [(n² - 3n + 2) / 2]
-4. We can factor to get: **((n - 1) \* (n - 2)) / 2**
+1. $(n * \frac{n + 1}{2}) - (n + n - 1)$
+2. $n + n - 1$ transforms into $\frac{4n - 2}{2}$
+3. Our original formulation in step 1 through algebra becomes $\frac{n^{2} - 3n + 2}{2}$
+4. We can factor to get: $\frac{(n - 1) * (n - 2)}{2}$
+
+* **Example 2.8**: 
