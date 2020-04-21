@@ -71,6 +71,7 @@ In conclusion, probability is a **real-valued**, **non-negative**, **countably a
   * **Corollary**: If $A \subseteq B$ then $P(A) \le P(B)$.
   * **Interpretation**: It is more likely for a computer to have at least one defect versus having exactly one defect.
   * **Note**: The condition of $A \subseteq B$ is very important. For example in rolling a single, fair die let's say we define:
+  
   \begin{align*}
   &B = \{1, 2\} \\
   &A = \{3, 4, 5\} \\
@@ -205,4 +206,215 @@ A similar thing happens when we want to sum only up to $n - 2$:
 3. Our original formulation in step 1 through algebra becomes $\frac{n^{2} - 3n + 2}{2}$
 4. We can factor to get: $\frac{(n - 1) * (n - 2)}{2}$
 
-* **Example 2.8**: 
+* **Example 2.8**: The birthday problem (which has such a wide variety of applications in so many different fields). What is the probability that at least two students of a class of size $n$ have the same birthday? Assume the birth rates are constant throughout the year (they are not), and each year has 365 days.
+
+In a reductionist sense, this is basically like having $n$ people randomly pull from a bag full of balls labeled from 1 to 365. This becomes very similar to **Example 2.4** as a result. For demonstration purposes, we are going to find the probability associated with $n = 1$ all the way up to $n = 115$.
+
+So to illustrate what's happening, let's start with $n = 23$. We could do this the hard way and find the probability that all 23 match, then that 22 match, then 21, so on and so forth. Let's do this the simpler way though and find the complement which is to say **the probability nobody matches**.
+
+First, the total number of outcomes is the *number of balls in the bag* (days in the year) to the *nth* power. Right? $365 * 365 * 365 * ... 365$ *n times*. Next the total number of outcomes where nobody has the same birthday is going to be $365 * 364 * 363 * 362 * 361 * ... * (365 - n) + 1$. Each subsequent person has one less day to pick from that would ensure they don't match someone else.
+
+```{r}
+nrPeople <- 23
+totalNrPossibleOutcomes <- 365 ^ nrPeople
+complementNrOutcomes <- prod(seq((365 - nrPeople) + 1, 365))
+
+1 - (complementNrOutcomes / totalNrPossibleOutcomes)
+```
+
+Let's turn this into a function and graph the results.
+
+```{r}
+library(dplyr)
+library(purrr)
+library(ggplot2)
+
+ProbBdayMatch <- function(nrPeople, nrDays = 365) {
+  denom <- nrDays ^ nrPeople
+  numer <- prod(seq(nrDays - nrPeople + 1, nrDays))
+  return(list(prob = 1 - (numer / denom), nrPeople = nrPeople))
+}
+
+probabilities <- map_dfr(seq(1, 115), ProbBdayMatch)
+ggplot(probabilities, aes(x = nrPeople, y = prob)) + geom_point() + theme_bw()
+```
+
+* **Example 2.9**: Let's ask a slightly different question around the birthday problem. Terra was born on the 4th of July. Assuming birth rates are constant throughout the year and each year has 365 days, how many people must Terra (randomly) meet to have a 50% (or better) chance of meeting at least one person with the same birthday?
+
+Let's reverse engineer this problem to gain some insight into it. Let's say Terra has met 3 people. What is the probability she will have the same birthday with at least one of them? The total number of possible combinations of birthdays these people could have is $365 * 365 * 365$ or $365^{3}$. The total number of possible outcomes where all 3 of them share Terra's birthday is 1 or $1 * 1 * 1$. The total number of possible outcomes where exactly 2 of them share Terra's birthday is $(364 * 1 * 1) + (1 * 364 * 1) + (1 * 1 * 364)$ where each sub-equation represents the first, second, or third person respectively not sharing a birthday with Terra. The total number of possible outcomes where exactly 1 of them shares Terra's birthday is $(364 * 364 * 1) + (364 * 1 * 364) + (1 * 364 * 364)$ where each sub-equation represents a scenario where only the third, second, or first person respectively share a birthday with Terra. We can then add all of these up and divide by the total number of outcomes to find our probability.
+
+The much easier path is to of course just subtract the complement from one. The total number of possible outcomes where each of the three people do not share a birthday with Terra is $364 * 364 * 364$ or $364^{3}$.
+
+```{r}
+match3 <- 1
+match2 <- 364 * 3
+match1 <- (364 ^ 2) * 3
+match0 <- 364 ^ 3
+atLeast1 <- match3 + match2 + match1
+denom <- 365 ^ 3
+
+atLeast1 / denom
+1 - (match0 / denom)
+```
+
+We can do something similar when Terra meets 4 people.
+
+```{r}
+match4 <- 1
+match3 <- (364 * 1 * 1 * 1) + (1 * 364 * 1 * 1) + (1 * 1 * 364 * 1) + (1 * 1 * 1 * 364)
+match2 <- (364 * 364 * 1 * 1) + (364 * 1 * 364 * 1) + (364 * 1 * 1 * 364) + (1 * 364 * 364 * 1) + (1 * 364 * 1 * 364) + (1 * 1 * 364 * 364)
+match1 <- (364 * 364 * 364 * 1) + (364 * 364 * 1 * 364) + (364 * 1 * 364 * 364) + (1 * 364 * 364 * 364)
+match0 <- 364 ^ 4
+atLeast1 <- match4 + match3 + match2 + match1
+denom <- 365 ^ 4
+
+atLeast1 / denom
+1 - (match0 / denom)
+```
+
+So we could, of course, do the old guess and check to find out when we get to a number that gets us to 50%. This is, of course, not good enough! We can represent this algebraically.
+
+Our probability in question is: $1 - \frac{364^{n}}{365^{n}}$
+And we want this probability to be: $\ge 0.5$
+Well let's put this together: $1 - \frac{364^{n}}{365^{n}} \ge 0.5$
+And solve it algebraically!
+
+\begin{align*}
+&1 - \frac{364^{n}}{365^{n}} \ge 0.5 \\
+&\frac{364^{n}}{365^{n}} \le 0.5 \\
+&\log_{10}(\frac{364^{n}}{365^{n}}) = \log_{10}(0.5) \\
+&n * \log_{10}(\frac{364}{365}) = \log_{10}(0.5)\\
+&n = \frac{\log_{10}(0.5)}{\log_{10}(\frac{364}{365})} \\
+&n \ge 252.65 \\
+\end{align*}
+
+We could, of course, choose to use any logarithm we so desired.
+
+Interpreting our results we would expect Terra to have to meet 253 people to have an approximately 50% chance of meeting at least one person who shared their birthday. I *believe* this means you would expect more often than not that in a random draw of 253 people you would find at least one person with the same birthday as you. In other words, in slightly more than 50% of cases you should expect to meet someone with the same birthday as you in a random draw of 253 people. If you meet 100 groups of 253 people, you should expect that in about 50 of those groups you will come across someone with the same birthday as you.
+
+Let's turn this into a function and graph the results.
+
+```{r}
+NrPeopleToMeet <- function(probability, nrDays = 365) {
+  
+  numerator <- 1 - probability
+  return(list(nrPeople = log10(numerator) / log10((nrDays - 1) / nrDays),
+              prob = probability))
+}
+
+probabilities <- seq(0.01, 0.99, 0.01)
+people <- map_dfr(probabilities, NrPeopleToMeet)
+
+ggplot(people, aes(x = prob, y = nrPeople)) + geom_point() + theme_bw()
+```
+
+These birthday results might seem strange. Why is it that in a room of 23 people there is an approximately 50% chance of at least two people having the same birthday, but I have to meet 253 people before I have a 50% chance of meeting someone with my birthday? Think of the lottery. The chance of *you* winning is very, very, very small. By comparison, the probability that *someone* wins the lottery is quite high. This suggests the probability of coincidences happening when construed of as broadly or generically is quite high.
+
+* **Theorem 2.3**: A set with $n$ elements has $2^{n}$ subsets. In other words, the power set of a set with $n$ elements has $2^{n}$ elements.
+
+We can explore this theorem with an example and understand the intuition behind it. Suppose we are at a vegan pizza restaurant where customers can choose from among 10 toppings: vegan pepperoni, mushrooms, vegan sausage, green peppers, onions, olives, red peppers, pineapple, garlic, and spinach. How many different types of pizzas could you create?
+
+_ _ _ _ _ _ _ _ _ _ Let's have these 10 blank spaces correspond to the 10 possible pizza toppings. And each one can be represented by a 1 (if we want the topping) and a 0 (if we don't want the topping). This means for each possible pizza topping there are two choices that could be made.
+
+ So then that means the total possible number of pizzas that can be created is: $2^{10}$.
+
+#### Permutations and Combinations
+
+Let's start with permutations. What is a permutation?
+
+* **Definition 2.1**: An ordered arrangement of $r$ objects from a set $A$ (which has $n$ objects) and follows this inequality $0 \lt r \le n$ is called an **r-element permutation** of $A$. We use the notation: $_{n}P_{r}$ to denote picking $r$ elements from a set of $n$ elements.
+
+If for example $A = \{a, b, c, d\}$ then $ab$ is a two-element permutation of $A$, $acd$ is a three-element permutation of $A$, and $abcd$ is a four-element permutation of $A$.
+
+The formula for computing the number of permutations for a set $A$ containing $n$ elements taken $r$ at a time follows the generalized counting principle we established earlier. For our first choice we will have $n$ options, our second choice will have $n - 1$ options, and so on and so forth until we get to the final choice which $n - (r - 1)$ or $n - r + 1$. Putting it all together: $$_{n}P_{r} = n * (n - 1) * (n - 2) * ... * (n - r + 1)$$
+
+An $n$-element permutation of a set with $n$ objects is simply called a permutation. The formula then simply becomes $n!$.
+
+There is a more popular way to show the equation for $_{n}P_{r}$ which is obtained by multiplying both sides by $(n - r)!$.
+
+\begin{align*}
+&_{n}P_{r} * (n - r)! = n * (n - 1) * (n- 2) * ... * (n - r + 1) * (n - r)! \\
+&_{n}P_{r} * (n - r)! = n * (n - 1) * (n- 2) * ... * (n - r + 1) * (n - r) * (n - r - 1) * ... * 3 * 2 * 1 \\
+&_{n}P_{r} * (n - r)! = n! \\
+&_{n}P_{r} = \frac{n!}{(n - r)!}
+\end{align*}
+
+* **Example 2.13** Three people: Bobby, Smithy, and Jonesy must be scheduled for job interviews. In how many different orders can this be done?
+
+$_{3}P_{3} = 3! = 6$
+
+* **Example 2.14**: Two copies of book A, four copies of book B, three copies of book C, three copies of book D, and five copies of book E must be arranged on a bookshelf, and it is done so randomly. What is the probability that each copy of the same book are next to each other? For example, all copies of book A are next to each other, all copies of book B are next to each other, etc.
+
+Let's think about this. How many possible ways are there to arrange the books? $17!$ since there are 17 books. Now we want to know how many of those possible arrangements have all the copies of the same book next to each other. Let's list some possible permutations that would fit our criteria:
+
+\begin{align*}
+&\{a_{1}, a_{2}, b_{1}, b_{2},  b_{3}, b_{4}, c_{1}, c_{2}, c_{3}, d_{1}, d_{2}, d_{3}, e_{1}, e_{2}, e_{3}, e_{4}, e_{5}\} \\
+&\{a_{2}, a_{1}, b_{4}, b_{2},  b_{3}, b_{1}, c_{3}, c_{2}, c_{1}, d_{2}, d_{1}, d_{3}, e_{2}, e_{3}, e_{1}, e_{5}, e_{4}\} \\
+&\{e_{1}, e_{2}, e_{3}, e_{4}, e_{5}, c_{1}, c_{2}, c_{3}, a_{1}, a_{2}, b_{1}, b_{2}, b_{3}, b_{4}, d_{1}, d_{2}, d_{3}\}
+\end{align*}
+
+So each our subsets of the books can be arranged in a variety of different ways.
+
+\begin{align*}
+&_{2}P_{2} = 2! = A \\
+&_{4}P_{4} = 4! = B \\
+&_{3}P_{3} = 3! = C \\
+&_{3}P_{3} = 3! = D \\
+&_{5}P_{5} = 5! = E
+\end{align*}
+
+So then if we do: $2! * 4! * 3! * 3! * 5!$ we will get the number of permutations that can happen when A is first, B is second, C is third, D is fourth, and E is fifth. But then there are $5!$ ways to order A, B, C, D, and E. So the total number of possible ways to order our books to fit our criteria is: $2! * 4! * 3! * 3! * 5! * 5!$
+
+That's a lot of ways! However, it is but a blip in the total number of ways those books can be ordered.
+
+```{r}
+denom <- factorial(17)
+numer <- 2 * 24 * 6 * 6 * 120 * 120
+numer / denom
+```
+
+* **Example 2.15**: If five boys and five girls sit on a bench in random order, what is the probability that no children of the same sex sit together?
+
+The total possible number of outcomes is $10!$. If we imagine them sitting on a bench the general order will have to be: $\{b, g, b, g, b, g, b, g, b, g\}$ OR $\{g, b, g, b, g, b, g, b, g, b\}$. This suggests the possible number of ways to order these children to fit our criteria is: $5! * 5! * 2$. Our answer below:
+
+```{r}
+denom <- factorial(10)
+numer <- 120 * 120 * 2
+numer / denom
+```
+
+Permutations can get a bit tricky when some of the elements are indistinguishable. For example let's consider the number of permutations of the 8 letters in B E R K E L E Y. It will not be $8!$. What will it be? Let's consider the permutation B Y E R E L E K. What if we labeled this as $B Y E_{1} R E _{2} L E _{3} K$? Well then it might be obvious there are 6 ($3!$) ways we could rearrange this particular permutation which otherwise would look the same. This means the total number of permutations is actually $\frac{8!}{3!}$. This is because we are actually creating too many permutations by a factor of $3!$. For each permutation there are $3!$ other permutations we are considering that should not be considered. This leads us to our new theorem.
+
+* **Theorem 2.4**: If we have the following formulation where $n = n_{1} + n_{2} + ... + n_{k}$. The, the number of distinguishable permutations of $n$ objects of $k$ different types where $n_{1}$ objects are alike, $n_{2}$ objects are alike, so on and so forth, until finally $n_{k}$ objects are alike will be: $$\frac{n!}{n_{1}! * n_{2} * ... * n_{k}!}$$
+
+This means what we've been doing before this has **REALLY** been something like $\frac{4!}{1! * 1! * 1! * 1!}$. The Berkely example is actually $\frac{8!}{3! * 1! * 1! * 1! * 1! * 1!}$.
+
+* **Example 2.16**: How many different 10-letter codes can be made using three A's, four B's, and three C's?
+
+```{r}
+factorial(10) / (factorial(3) * factorial(4) * factorial(3))
+```
+
+* **Example 2.17**: How many ways can we paint 11 offices so that four of them are green, three yellow, two white, and two pink?
+
+```{r}
+factorial(11) / (factorial(4) * factorial(3) * factorial(2) * factorial(2))
+```
+
+* **Example 2.18**: What is the probability of obtaining exactly three heads after a coin is flipped three times?
+
+We were doing these types of problems earlier in the chapter! Now we have more knowledge concerning how to tackle this problem a bit more intelligently and elegantly. We need not apply so much brute force. 
+
+1. We know the total number of possible flips is $2^{10}$
+2. Let's consider one potential sequence which fits our criteria: $HHHTTTTTTT$.
+3. Let's consider another sequence which fits our criteria: $HTHTHTTTTT$
+4. We are basically trying to figure out how many different permutations there are which would be: $_{10}P_{3} = \frac{10!}{7!}$
+5. **BUT!** We are overcounting by a factor of $3!$. So we will need to divide that out too. $\frac{10!}{7! * 3!}$
+6. Then we divide the value in step 5 with the total number of outcomes found in step 1 to arrive at our probability. Let's do some math!
+
+```{r}
+denom <- 2 ^ 10
+nrPerm <- factorial(10) / factorial(7)
+numer <- nrPerm / factorial(3)
+numer / denom
+```
