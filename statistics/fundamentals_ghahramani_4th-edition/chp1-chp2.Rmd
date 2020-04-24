@@ -454,7 +454,7 @@ Well the total number of combinations of negative responses is $\binom{45}{32}$.
 (factorial(42) / (factorial(29) * factorial(13))) / (factorial(45) / (factorial(32) * factorial(13)))
 ```
 
-* **Example 2.21**: In a smalltown, 8 of the 25 schoolteachers are pro-life, 11 are pro-choice, and the rest are indifferent. A random sample of five schoolteachers are selected for an interview. What is the probability that a) all of them are pro-life; b) all of them have the same opinion?
+* **Example 2.21**: In a small town, 8 of the 25 schoolteachers are pro-life, 11 are pro-choice, and the rest are indifferent. A random sample of five schoolteachers are selected for an interview. What is the probability that a) all of them are pro-life; b) all of them have the same opinion?
 
 1. The total number of possible combinations is $\binom{25}{5}$.
 2. The total number of possible combinations where every sample member is pro-life is $\binom{8}{5}$.
@@ -477,7 +477,7 @@ numerB / denom
 
 3. The number of outcomes where somebody randomly guesses 5 of the numbers correctly... hmmm... this is a bit tricky. I actually got this wrong. Well let's think about this. Suppose the winning combination is $\{1, 2, 3, 4, 5, 6\}$. Let's say you then guessed $\{1, 2, 3, 4, 5, 7\}$. Well hooray you got second place. $\{1, 2, 3, 4, 5, 8\}$ would also have gotten us second prize. Same goes for $\{1, 2, 3, 4, 5, 9\}$. In total there are 43 possible combination of results that could have gotten us second place. But that's not all. Suppose we actually guessed $\{2, 3, 4, 5, 6, 7\}$. Well this is also a valid second-place entry. There are 43 possible combinations of this entry as well. So really there is going to be $\binom{6}{5} = 6$ (i.e. 6 possible ways of choosing 5 out of the 6 lotto numbers correctly) * $\binom{43}{1} = 43$ (i.e. 43 possible ways of choosing 1 out of the 43 remaining non-lotto numbers).
 
-4. The number of outcomes where somebody randomly guesses 4 of the numbers correctly. Well following the logic from above there will be $\binom{6}{4} = 15$ (i.e. 15 possible ways of chossing 4 out of the 6 lotto numbers correctly) * $\binom{43}{2} = 903$ (i.e. 903 possible ways of choosing 2 out of the remaining 43 non-lotto numbers).
+4. The number of outcomes where somebody randomly guesses 4 of the numbers correctly. Well following the logic from above there will be $\binom{6}{4} = 15$ (i.e. 15 possible ways of choosing 4 out of the 6 lotto numbers correctly) * $\binom{43}{2} = 903$ (i.e. 903 possible ways of choosing 2 out of the remaining 43 non-lotto numbers).
 
 ```{r}
 denom <- factorial(49) / (factorial(6) * factorial(43))
@@ -510,8 +510,34 @@ atleast1 / denom
 * **Example 2.24**: What is the probability that a poker hand is a full house? A poker hand consists of 5 randomly selected cards from a 52-card deck. A full house is when three cards are on denomination and two cards are of another denomination e.g. three queens and two 4's.
 
 1. Total number of possible five card hands: $\binom{52}{5}$
-2. 
+2. Next, think of it this way. There are 13 possible face cards you can get (2, 3, 4, ... J, Q, K, A). So for the 3 of a kind, we have 13 possible choices of face cards. Then for the 2 of a kind, we have 12 possible choices. It could be reversed as well. This is a permutation because order matters.
+3. Next for our 3 of a kind, there are 4 possible suits we could choose from. So this would be represented as $\binom{4}{3}$.
+4. Then for our 2 of a kind, there are also 4 possible suits we could choose from. So this would be represented as $\binom{4}{2}$.
+5. What we wind up with as the number of possible ways to create a full house is: $13 * \binom{4}{3} * 12 * \binom{4}{2}$.
 
 ```{r}
-
+denom <- prod(48:52) / factorial(5)
+numer <- 13 * 12 * 4 * 6
+numer / denom
 ```
+
+Suppose you had $n$ identical oranges to distribute among $k$ people. How many ways could you divide up the oranges? To count the number of ways we could do this, add $k - 1$ identical apples to the oranges. We now have $n + k - 1$ identical oranges and apples. Line up the oranges and apple in a random order. We know the number of permutations (if the order mattered/the apples and oranges weren't identical) would be $(n + k - 1)!$.
+
+Now we are going to give all the oranges preceding the first apple to the first person, give all of the oranges between the first apple and the second apple to the second person, and so on and so forth. Note if the sequence starts with an apple, the first person gets no oranges. Similarly if two apples appear next to each other then that person does not receive any oranges. This process establishes a one-to-one correspondence between the number of ways $n$ identical oranges can be divided among $k$ people and the number of permutations of $n + k - 1$ apples and oranges.
+
+We are not done though. Remember the oranges and apples are identical (meaning order does not matter). This means we are overcounting the apples (by a factor of $(k - 1)!$), and we are overcounting the oranges (by a factor of $n!$). This means the number of ways in which we *actually* can distribute the oranges is $\frac{(n + k - 1)!}{n! * (k - 1)!}$ Does this look familiar? It should. It's $\binom{n + k - 1}{n} = \binom{n + k - 1}{k - 1}$
+
+A fun application of this pattern we just established is if we have a positive integer $n$ and an equation $x_{1} + x_{2} + ... + x_{k} = n$ then some vector $(x_{1}, x_{2}, ..., x_{k})$ which satisfies our equation is said to be a **non-negative integer solution of the equation** if each $x$ is a non-negative integer. If we think of $(x_{1}, x_{2}, ..., x_{k})$ as $k$ cells, then the problem reduces to that of dividing $n$ identical objects (namely $n$ 1's) into $k$ cells which we established above as: $\binom{n + k - 1}{n} = \binom{n + k - 1}{k - 1}$.
+
+Another additional little fun fact concerns **positive integer solutions of the equation** which is when every $x$ is a positive integer (rather than simply non-negative). The intuitive proof here gets a bit tricky. Let $y_{i} = x_{i} - 1$ where $1 \le i \le k$. Then for each positive integer solution $(x_{1}, x_{2}, ..., x_{k})$ of $x_{1} + x_{2} + ... + x_{k} = n$ there is exactly one non-negative integer solution $(y_{1}, y_{2}, ..., y_{k})$ of $y_{1} + y_{2} + ... + y_{k} = n - k$ and vice versa. Why does it equal $n - k$? Because we are subtracting out $k$ 1's. If you add up $k$ 1's, you're left with $k$. Now wait a minute we know how to deal with non-negative integer solutions. We now substitute $n - k$ for $n$ though since we now have $n- k$ objects we're distributing amongst $k$ cells. This means our solution is: $\binom{n - k + k - 1}{n - k} = \binom{n - 1}{n - k} = \binom{n - 1}{k - 1}$
+
+* **Example 2.27**: A stockholder is considering whether to invest \$150,000 in five new stocks each in multiples of \$10,000. In how many ways can he invest in these stocks if a) he is determined to buy at least \$10,000 of each stock and b) he does not necessarily select to invest in all five stocks.
+
+Well for part A, we are trying to find the number of positive integer solutions of the equation which would be $\binom{14}{10}$. And then for part B, that's simply trying to distribute 15 objects amongst 5 buckets which would be $\binom{19}{15}$
+
+```{r}
+numberofWaysA <- factorial(14) / (factorial(10) * factorial(4))
+numberOfWaysB <- factorial(19) / (factorial(15) * factorial(4))
+```
+
+* **Example 2.28**: 
