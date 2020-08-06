@@ -40,7 +40,7 @@
 * **Example 13**
   * I don't know how to make this a proof.
 
-<img src = "images\problem_1-7-13.jpg" alt = "Example 1.19 Solution" width = "600"/>
+<img src = "images\problem_1-7-13.jpg" alt = "Section 1.7 Example #13 Solution" width = "650"/>
 
 * **Example 15**
   * I think this has something to do with uncountable infinite sets. I really don't know though, and the answer in the textbook is supremely unhelpful.

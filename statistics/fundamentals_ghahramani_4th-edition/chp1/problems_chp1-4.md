@@ -86,7 +86,7 @@
 * **Example 39**
   * The only reason this problem is hard is because it's so convoluted and confusingly worded.
 
-<img src = "images\problem_1-4-39.jpg" alt = "Example 1.19 Solution" width = "400"/>
+<img src = "images\problem_1-4-39.jpg" alt = "Section 1.4, Example #39 Solution" width = "500"/>
 
 * **Example 41**
   * Let's say the first number we pick is 100. That means there are 99 possible numbers we could pick the second time that would be smaller. Let's say we picked 99. There would be 98 possible numbers that we could pick that'd be smaller.
