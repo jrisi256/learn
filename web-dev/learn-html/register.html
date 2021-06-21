@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "utf-8">
+    <title>Register</title>
+</head>
+
+<body>
+    <!--Useful for dividing up web content and for styling.-->
+    <div>
+        <!--Sends this information as a query string in the URL, everything after the ?-->
+        <!--We could use the POST method, and then this information would not be submitted as part of the URL but instead as part of the body.-->
+        <form method = "GET">
+            <!-- The inline counterpart to div. Allows for specific inline elements to be styled.-->
+            <span>First Name:</span> <input type = "text" name = "firstname"><br>
+            Last Name: <input type = "text" name = "lastname"><br>
+            Email: <input type = "email" required name = "email"><br>
+            Password: <input type = "password" minlength = "5" name = "password"><br>
+            Birthday: <input type = "date" name = "birthday"><br>
+            Gender:<br>
+            <!--Radio buttons must all have the same name attribute so all the radio buttons are aware of each other. Ensures only one can be selected.-->
+            <input type = "radio" name = "gender" value = "Male">Male<br>
+            <input type = "radio" name = "gender" value = "Female">Female<br>
+            <input type = "radio" name = "gender" value = "Other">Other<br>
+            Pets:<br>
+            <input type = "checkbox" name = "cat">Cat<br>
+            <input type = "checkbox" name = "dog">Dog<br>
+            Cars:<br>
+            <select multiple name = "cars">
+                <option value = "Volvo" value = "volvo">Volvo</option>
+                <option value = "Audi" value = "audi">Audi</option>
+            </select><br>
+            <input type = "submit" value = "Register, yo">
+            <input type = "reset">
+        </form>
+    </div>
+</body>
