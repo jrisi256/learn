@@ -1,0 +1,100 @@
+/* CSS takes the form of:
+
+Selector {
+    Property: value;
+}
+
+*/
+
+/* Applies to every element. Notice how because we have text-align:center already in h2, p that this style doesn't apply to those elements. Remember CSS specificity and the cascading nature of how CSS works. */
+* {
+    text-align: right;
+}
+
+/* Cascading style sheets. It will always use the last input received when determing what to do. In this case, it will make all "p" elements green. */
+
+body {
+    background-image: url(https://images.unsplash.com/photo-1552432134-191ce4bdf1f7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=689&q=80);
+    background-size: cover;
+}
+
+/* can select multiple types of elements this way */
+h2, p {
+    /* Allows us to control the opacity of the color. Red, green, blue, and then opacity (between 0 and 1). */
+    color: rgba(255, 169, 159, 0.25);
+    background-color: black;
+    text-align: center;
+    border: 5px dashed #2D882D;
+    cursor: pointer;
+}
+
+/* Applies only to p elements within an h2 element. */
+h2 p {
+    color: slateblue;
+}
+
+/* Applies only to p elements whose direct parent is an h2 element. */
+h2 > p {
+    color: cornflowerblue;
+}
+
+/* Applies only to p elements who come directly after the h2 element. */
+/* The :hover select ensures the style only gets applied when it is hovered over. */
+h2 + p:hover {
+    color:darkblue
+}
+
+p {
+    color: blue;
+}
+
+p {
+    color: green;
+    text-decoration: underline;
+    text-transform: uppercase;
+    line-height: 10px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 80%;
+    /* If the computer this website is being opened up on doesn't have Times New Roman, then view this website using Georgia. Good practice to end with a generic family font which are universally supported generally. */
+    font-family: "Poiret One", Georgia, cursive;
+}
+
+/*Wrap text around the image.*/
+img {
+    float: right;
+}
+
+/* Often used with float. This ensures that this particular element isn't used in conjunction with the float. */
+footer {
+    clear: both;
+    text-align: center;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
+
+.paragraph-example {
+    border: 5px dashed yellow;
+}
+
+/* Applies to only the last child of each class. There's also :first child which applies to the first child. */
+.paragraph-example:last-child {
+    border: 5px solid burlywood;
+}
+
+/* Used for classes */
+.paragraph-example-prime {
+    color: red;
+}
+
+/* Used for IDs. Unlike classes which can be applied to multiple elements, IDs are unique in a page and can apply to at most only one element. */
+#paragraph-div {
+    background-color: rgba(0, 0, 255, 0.2);
+}
+
+#paragraph-div2 {
+    background-color: rgba(255, 0, 0, 0.2);
+}
