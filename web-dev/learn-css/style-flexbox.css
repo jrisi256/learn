@@ -1,0 +1,50 @@
+body {
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+h1 {
+    font-family: fantasy;
+    font-size: 3em;
+    border-bottom: 2px solid pink;
+    border-right: 2px solid pink;
+    width: 400px;
+    text-align: center;
+    margin-top: 10px;
+
+    /* Experimental features. You sometimes need to use browser prefixes to ensure experimental CSS features work on each browser. */
+    -moz-box-shadow: 4px 4px 5px #888888; /* Firefox */
+    -ms-box-shadow: 4px 4px 5px #888888; /* Edge */
+    -webkit-box-shadow: 4px 4px 5px #888888; /* Safari and Chrome */
+    -o-box-shadow: 4px 4px 5px #888888; /* Opera */
+    box-shadow: 4px 4px 5px #888888;
+}
+
+img {
+    width: 450px;
+    height: 300px;
+    margin: 10px;
+
+    /* The image should transition when an action is taken upon it. All the properties should transition over the course of 0.5 seconds. */
+    /* The first argument in transition specifies the CSS property where the transition will be applied. E.g. background-color, transform, or all. */
+    /* There is a third argument, not explicitly defined here, which dictates the rate of change in the transition (e.g. start out slow, end fast). */
+    /* A fourth, optional argument designates how long to wait before transitioning. */
+    transition: all 0.5s;
+
+    /* Specifies the origin to use when transforming the element. */
+    transform-origin: 10% 45%
+}
+
+img:hover {
+
+    transform: scale(1.1);
+    transform: translate(20px, 10px);
+    transform: skew(10deg, 30deg);
+    transform: rotate(90deg);
+    transform: rotate(90deg) scale(2)
+}
