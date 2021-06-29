@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cyber Boogie</title>
+
+    <!--Meta tags define metadata about the HTML document. It can specify information about the character set, keywords, author of the document, etc.-->
+    <meta charset = "utf-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <!-- Bootstrap CSS from a CDN. This way you don't have to include the bootstrap file yourself -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <!-- Your own stylesheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+
+    <!--The d-flex class enables flexbox to be used.-->
+    <!--h-100 tells Bootstrap this container will take up 100% of the height of the page allowing it to be aligned vertically across the entire page.-->
+    <!--Need to use rows and columns because that is how Bootstrap works.-->
+    <div class = "container d-flex align-items-center justify-content-center h-100">
+      <div class = "row">
+
+        <header class = "col-12 text-center">
+          <!--Fun little bootstrap feature where if you add specific classes to certain HTML elements, they'll be styled automatically.-->
+          <h1 class = "text-uppercase">Hello World!</h1>
+        </header>
+
+        <div class = "buffer col-12">
+        </div>
+
+        <section class = "col-12 text-center">
+          <hr>
+          <button class = "btn btn-primary btn-xl">Activate!</button>
+        </section>
+
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,13 @@
+.btn-primary {
+    color: chartreuse;
+    background-color: chocolate;
+}
+
+.btn-primary:hover {
+    background-color: papayawhip;
+}
+
+.col {
+    background-color: grey;
+    border: 2px solid black;
+}
